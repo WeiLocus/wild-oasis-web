@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Logo from "./Logo"
+import MainNav from "./MainNav";
 
 const StyledSidebar = styled.aside`
   /* 佔滿第一列 */
@@ -12,6 +13,8 @@ const StyledSidebar = styled.aside`
 function Sidebar() {
   return <StyledSidebar>
     <Logo />
+    <MainNav />
+    
   </StyledSidebar>;
 }
 
