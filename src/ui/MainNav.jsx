@@ -36,6 +36,21 @@ const StyledNavLink = styled(NavLink)`
     background-color: var(--color-grey-50);
     border-radius: var(--border-radius-sm);
   }
+
+  /* svg */
+  & svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--color-grey-500);
+    transition: all 0.2s;
+  }
+
+  &:hover svg,
+  &:active svg,
+  &.active:link svg,
+  &.active:visited svg {
+    color: var(--color-brand-600);
+  }
 `;
 
 function MainNav() {
