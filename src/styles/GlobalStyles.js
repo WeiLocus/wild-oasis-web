@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
 :root {
   /* Indigo */
   --color-brand-50: #eef2ff;
@@ -54,6 +57,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* for dark mode */
+  transition: background-color 0.3s border 0.3s;
 }
 
 html {
@@ -125,4 +130,7 @@ button {
 
 button:has(svg) {
   line-height: 0;
-}
+}`;
+
+
+export default GlobalStyle
