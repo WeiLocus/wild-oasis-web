@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 :root {
   /* Indigo */
   --color-brand-50: #eef2ff;
@@ -125,4 +128,4 @@ button {
 
 button:has(svg) {
   line-height: 0;
-}
+}`;
