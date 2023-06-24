@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { GlobalStyle } from "./styles/GlobalStyles"
+import { GlobalStyle } from "./styles/GlobalStyles";
 import Heading from "./ui/Heading";
 import Button from "./ui/Button";
-import Input from "./ui/Input"
+import Input from "./ui/Input";
 import Row from "./ui/Row";
 
 const StyledApp = styled.div`
@@ -10,7 +10,6 @@ const StyledApp = styled.div`
 `;
 
 function App() {
-
   return (
     <StyledApp>
       <GlobalStyle />
@@ -19,8 +18,12 @@ function App() {
           <Heading as="h1">The Wild Oasis</Heading>
           <div>
             <Heading as="h2">Check in and out</Heading>
-            <Button>check in</Button>
-            <Button>check out</Button>
+            <Button>
+              check in
+            </Button>
+            <Button variation="secondary" size="small">
+              check out
+            </Button>
           </div>
         </Row>
         <Row>
@@ -35,4 +38,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
