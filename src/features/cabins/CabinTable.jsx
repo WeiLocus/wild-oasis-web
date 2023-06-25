@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import { getCabins } from "../../services/apiCabins";
 import CabinRow from "./CabinRow";
+import Spinner from "../../ui/Spinner";
 
 const Table = styled.div`
   border-radius: var(--border-radius-md);
@@ -32,12 +33,12 @@ function CabinTable() {
     queryKey: ["cabins"],
     queryFn: getCabins,
   });
-  console.log("cabinsData",cabinsData)
 
+  if (isLoading) return <Spinner />;
 
-  if (isLoading) return <div>Spinner</div>;
-
-  const renderedCabinRow = cabinsData.map((cabin) => <CabinRow key={cabin.id} cabinData={cabin}/>)
+  const renderedCabinRow = cabinsData.map((cabin) => (
+    <CabinRow key={cabin.id} cabinData={cabin} />
+  ));
 
   return (
     <Table role="table">
