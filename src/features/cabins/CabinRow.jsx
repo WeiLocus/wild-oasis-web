@@ -12,6 +12,33 @@ const TableRow = styled.div`
   }
 `;
 
+const Img = styled.img`
+  display: block;
+  width: 6.4rem;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 3 / 2;
+  transform: scale(1.5) translateX(-5px);
+`;
+
+const Cabin = styled.div`
+  color: var(--color-grey-600);
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-family: "Sono";
+`;
+
+const Price = styled.div`
+  font-weight: 600;
+  font-family: "Sono";
+`;
+
+const Discount = styled.div`
+  color: var(--color-green-700);
+  font-weight: 500;
+  font-family: "Sono";
+`;
+
 function CabinRow({ cabinData }) {
   console.log("a", cabinData);
   const { name, maxCapacity , regularPrice, discount, image } =
@@ -19,11 +46,12 @@ function CabinRow({ cabinData }) {
 
   return (
     <TableRow>
-      <img src={image} alt="cabin 1" />
-      <div>{name}</div>
+      <Img src={image} alt="cabin 1" />
+      <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
-      <div>{regularPrice}</div>
-      <div>{discount}</div>
+      <Price>{regularPrice}</Price>
+      <Discount>{discount}</Discount>
+      <button>Delete</button>
     </TableRow>
   );
 }
