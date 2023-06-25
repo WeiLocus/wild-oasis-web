@@ -25,7 +25,7 @@ export async function deleteCabin(id) {
 }
 
 // create : 傳入object from react-hook-form data
-async function createCabin(newCabin) {
+export async function createCabin(newCabin) {
   const { data, error } = await supabase
     .from("cabins")
     .insert([newCabin]);

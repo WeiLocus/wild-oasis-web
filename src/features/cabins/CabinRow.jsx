@@ -44,7 +44,6 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabinData }) {
-  console.log("a", cabinData);
   const { id: cabinId, name, maxCapacity , regularPrice, discount, image } =
     cabinData;
 
