@@ -17,7 +17,8 @@ const basename = import.meta.env.VITE_PUBLIC_URL;
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 60 * 1000,
+      // staleTime: 60 * 1000,
+      staleTime: 0,
     }
   }
 })
