@@ -9,9 +9,15 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import FileInput from "../../ui/FileInput";
 
-function CreateCabinForm() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
+function CreateCabinForm({ cabinToEdit={} }) {
+  // 編輯cabin時，自動帶入所有資料
+  const { id: editId, ...cabinInputValues } = cabinToEdit;
+  const isEditCabin = Boolean(editId)
 
+  // use form to edit or create new cabin : 條件判斷
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
+    defaultValues: isEditCabin ? cabinInputValues : {}
+  });
   const { errors } = formState;
 
   const queryClient = useQueryClient();
@@ -30,7 +36,7 @@ function CreateCabinForm() {
 
   function onSubmit(data) {
     // data 加上 image
-    mutate({ ...data, image: data.image[0]});
+    mutate({ ...data, image: data.image[0] });
     console.log(data, data.image[0]);
   }
   //
