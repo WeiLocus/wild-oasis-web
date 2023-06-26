@@ -25,32 +25,31 @@ export async function deleteCabin(id) {
   return data;
 }
 
-// create : 傳入object from react-hook-form data 或 目前的cabinId
-// supabase image path example: 
+// create/edit : 傳入object from react-hook-form data 或 目前的cabinId
+// supabase image path example:
 // https://pailwlkfdhultwskkxvu.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
 
-export async function createOrEditCabin(newCabin ,id) {
-  console.log("id", id)
-
+export async function createOrEditCabin(newCabin, id) {
+  
   // check if already has image path in cabin table
-  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl)
+  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
   // specify unique image name
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
     "/",
     ""
   );
-  const imagePath = hasImagePath ?  newCabin.image :`${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  const imagePath = hasImagePath
+    ? newCabin.image
+    : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
-  const query = supabase.from("cabins");
+  let query = supabase.from("cabins");
   // 1. create cabin if no id and return new create object
   if (!id) {
-    query.insert([{ ...newCabin, image: imagePath }]);
+    query = query.insert([{ ...newCabin, image: imagePath }]);
   }
   // edit cabin if has id
   if (id) {
-    query
-      .update({ ...newCabin, image: imagePath })
-      .eq("id", id);
+    query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
   }
   const { data, error } = await query.select().single();
 
