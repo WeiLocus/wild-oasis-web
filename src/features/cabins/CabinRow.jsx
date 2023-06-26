@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helper";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteCabin } from "../../services/apiCabins";
+import { toast } from "react-hot-toast";
+import { useState } from "react";
+import CreateCabinForm from "./CreateCabinForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -41,19 +46,42 @@ const Discount = styled.div`
 `;
 
 function CabinRow({ cabinData }) {
-  console.log("a", cabinData);
-  const { name, maxCapacity , regularPrice, discount, image } =
+  const [showForm, setShowForm] = useState(false)
+  const { id: cabinId, name, maxCapacity , regularPrice, discount, image } =
     cabinData;
 
+  const queryClient = useQueryClient()
+
+  // 處理delete , 解構mutate callback function
+  const { isLoading: isDeleting, mutate } = useMutation({
+    mutationFn: deleteCabin,
+    // when mutation success, re-fetch data
+    onSuccess: () => {
+      toast.success("Cabin successfully deleted!")
+      queryClient.invalidateQueries({
+        queryKey: ["cabins"],
+      })
+    },
+    onError: err => toast.error(err.message),
+  })
+
   return (
-    <TableRow>
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-      <button>Delete</button>
-    </TableRow>
+    <>
+      <TableRow>
+        <Img src={image} />
+        <Cabin>{name}</Cabin>
+        <div>Fits up to {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        <Discount>{formatCurrency(discount)}</Discount>
+        <div>
+          <button onClick={() => setShowForm(!showForm)}>Edit</button>
+          <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
+            Delete
+          </button>
+        </div>
+      </TableRow>
+      {showForm && <CreateCabinForm cabinToEdit={cabinData}/>}
+    </>
   );
 }
 

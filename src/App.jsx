@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
+import { Toaster } from "react-hot-toast";
 
 const basename = import.meta.env.VITE_PUBLIC_URL;
 
@@ -19,15 +20,14 @@ const queryClient = new QueryClient({
     queries: {
       // staleTime: 60 * 1000,
       staleTime: 0,
-    }
-  }
-})
-
+    },
+  },
+});
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false}/>
+      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyles />
       <BrowserRouter basename={basename}>
         <Routes>
@@ -44,6 +44,27 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          // type
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          style: {
+            padding: "16px 24px",
+            maxWidth: "500px",
+            color: "var(--color-grey-700)",
+            backgroundColor: "var(--color-grey-0)",
+            fontSize: "16px",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }
