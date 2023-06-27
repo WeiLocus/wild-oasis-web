@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createOrEditCabin } from "../../services/apiCabins";
-import { toast } from "react-hot-toast";
+import { useCreateCabin } from "./useCreateCabin";
+import { useEditCabin } from "./useEditCabin";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
@@ -9,10 +8,15 @@ import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
 import FileInput from "../../ui/FileInput";
 
-function CreateCabinForm({ cabinToEdit={} }) {
+
+function CreateCabinForm({ cabinToEdit = {} }) {
   // 編輯cabin時，自動帶入所有資料
   const { id: editId, ...cabinInputValues } = cabinToEdit;
   const isEditCabin = Boolean(editId);
+
+  // use hook
+  const { isCreating, createCabin } = useCreateCabin();
+  const { isEditing, editCabin } = useEditCabin();
 
   // use form to edit or create new cabin : 條件判斷
   const { register, handleSubmit, reset, getValues, formState } = useForm({
@@ -20,45 +24,26 @@ function CreateCabinForm({ cabinToEdit={} }) {
   });
   const { errors } = formState;
 
-  const queryClient = useQueryClient();
-  // create cabin
-  const { isLoading: isCreating, mutate: createCabin } = useMutation({
-    mutationFn: createOrEditCabin,
-    onSuccess: () => {
-      toast.success("New cabin successfully created!");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      // reset all input field
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
-  // edit cabin : 需要參數
-  const { isLoading: isEditing, mutate: editCabin } = useMutation({
-    mutationFn: ({ newCabinData, id }) => createOrEditCabin(newCabinData, id),
-    onSuccess: () => {
-      toast.success("Cabin successfully edited!");
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
+  // submit form
   function onSubmit(data) {
     // data 加上 image，先判斷目前的image格式
-    const image = typeof data.image === "string" ? data.image : data.image[0]
+    const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditCabin) {
-      editCabin({ newCabinData: {...data, image: image}, id: editId });
+      editCabin({ newCabinData: { ...data, image: image }, id: editId });
     } else {
-      createCabin({ ...data, image: image})
+      createCabin(
+        { ...data, image: image },
+        {
+          onSuccess: (data) => {
+            reset();
+          },
+        }
+      );
     }
-    // console.log(data);
+    console.log(data);
   }
-  
+
   function onError(errors) {
     console.log(errors);
   }
