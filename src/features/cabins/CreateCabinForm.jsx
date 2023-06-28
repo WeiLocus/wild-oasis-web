@@ -9,7 +9,7 @@ import FormRow from "../../ui/FormRow";
 import FileInput from "../../ui/FileInput";
 
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   // 編輯cabin時，自動帶入所有資料
   const { id: editId, ...cabinInputValues } = cabinToEdit;
   const isEditCabin = Boolean(editId);
@@ -30,13 +30,18 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     if (isEditCabin) {
-      editCabin({ newCabinData: { ...data, image: image }, id: editId });
+      editCabin({ newCabinData: { ...data, image: image }, id: editId }, {
+        onSuccess: (data) => {
+          onCloseModal?.();
+        } 
+      })
     } else {
       createCabin(
         { ...data, image: image },
         {
           onSuccess: (data) => {
             reset();
+            onCloseModal?.()
           },
         }
       );
@@ -49,7 +54,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)} type={onCloseModal ? "modal" : "regular"}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
@@ -126,7 +131,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
         />
       </FormRow>
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={() => onCloseModal?.()}>
           Cancel
         </Button>
         <Button disabled={isCreating || isEditing}>
