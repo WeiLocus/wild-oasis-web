@@ -11,7 +11,7 @@ function AddCabin() {
         Add new cabin
       </Button>
       {isOpenModal && (
-        <Modal></Modal>
+        <Modal><CreateCabinForm /></Modal>
       )}
     </div>
   );
