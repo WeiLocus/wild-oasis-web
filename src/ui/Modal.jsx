@@ -84,7 +84,7 @@ function Window({ children, name }) {
         <Button onClick={close}>
           <HiXMark />
         </Button>
-        <div>{children}</div>
+        <div>{cloneElement(children, {onCloseModal: close})}</div>
       </StyledModal>
     </Overlay>,
     // 將元件渲染在document.body
