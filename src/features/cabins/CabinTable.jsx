@@ -8,10 +8,6 @@ function CabinTable() {
 
   if (isLoading) return <Spinner />;
 
-  const renderedCabinRow = cabinsData.map((cabin) => (
-    <CabinRow key={cabin.id} cabinData={cabin} />
-  ));
-
   return (
     <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
       <Table.Header>
@@ -21,7 +17,10 @@ function CabinTable() {
         <div>Price</div>
         <div>discount</div>
       </Table.Header>
-      {renderedCabinRow}
+      <Table.Body
+        cabinData={cabinsData}
+        render={(cabin) => <CabinRow key={cabin.id} cabinData={cabin} />}
+      ></Table.Body>
     </Table>
   );
 }

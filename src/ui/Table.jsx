@@ -32,6 +32,17 @@ const StyledRow = styled(CommonRow)`
   }
 `;
 
+const StyledBody = styled.section`
+  margin: 0.4rem 0;
+`
+
+const Empty = styled.p`
+  margin: 2.4rem;
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 500;
+`
+
 const TableContext = createContext()
 
 function Table({ columns, children}) {
@@ -54,7 +65,10 @@ function Row({ children }) {
   const { columns } = useContext(TableContext);
   return <StyledRow role="row" columns={columns}>{children}</StyledRow>;
 }
-function Body() {}
+function Body({ cabinData,render}) {
+  if( !cabinData.length ) return <Empty>No data to show at the moment</Empty>; 
+  return <StyledBody>{cabinData.map(render)}</StyledBody>
+}
 
 
 Table.Header = Header
