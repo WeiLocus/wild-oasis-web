@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import { createPortal } from "react-dom";
+import useClickOutside from "../hooks/useClickOutside";
 
 const Menu = styled.div`
   display: flex;
@@ -49,9 +50,17 @@ const StyledButton = styled.button`
   background: none;
   border: none;
   font-size: 1.4rem;
+  transition: all 0.2s;
 
   &:hover {
     background-color: var(--color-grey-50);
+  }
+
+  & svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--color-grey-400);
+    transition: all 0.3s;
   }
 `;
 
@@ -94,20 +103,31 @@ function Toggle({ id }) {
   );
 }
 function List({ id, children }) {
-  const { openId, position } = useContext(MenusContext);
-
+  const { openId, position, close } = useContext(MenusContext);
+  const ref = useClickOutside(close)
   if (openId !== id) return null;
 
   return createPortal(
-    <StyledList position={position}>{children}</StyledList>,
+    <StyledList position={position} ref={ref}>
+      {children}
+    </StyledList>,
     document.body
   );
 }
 
-function Button({ children }) {
+function Button({ children, icon, onClick }) {
+  const {close} = useContext(MenusContext)
+  function handleClick() {
+    onClick?.()
+    close()
+  }
+
   return (
     <li>
-      <StyledButton>{children}</StyledButton>
+      <StyledButton onClick={handleClick}>
+        {icon}
+        <span>{children}</span>
+      </StyledButton>
     </li>
   );
 }
