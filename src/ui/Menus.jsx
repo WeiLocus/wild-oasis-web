@@ -59,20 +59,30 @@ const MenusContext = createContext();
 
 function Menus({ children }) {
   const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState()
   const open = setOpenId;
   const close = () => setOpenId("");
 
   return (
-    <MenusContext.Provider value={{ openId, open, close }}>
+    <MenusContext.Provider value={{ openId, open, close, position, setPosition }}>
       {children}
     </MenusContext.Provider>
   );
 }
 
 function Toggle({ id }) {
-  const { openId, open, close } = useContext(MenusContext);
+  const { openId, open, close, setPosition } = useContext(MenusContext);
 
-  function handleClick() {
+  function handleClick(e) {
+    // give us position
+    const rectangle = e.target.closest("button").getBoundingClientRect()
+    console.log(rectangle)
+    console.log(window.innerWidth, rectangle.width, rectangle.x);
+    setPosition({
+      x: window.innerWidth - rectangle.width - rectangle.x,
+      y: rectangle.y + rectangle.height + 8
+    })
+
     // 如果目前沒有open的row 或 目前open的是別的row ， 就open
     openId === "" || openId !== id ? open(id) : close();
   }
@@ -84,12 +94,12 @@ function Toggle({ id }) {
   );
 }
 function List({ id, children }) {
-  const { openId } = useContext(MenusContext);
+  const { openId, position } = useContext(MenusContext);
 
   if (openId !== id) return null;
 
   return createPortal(
-    <StyledList position={{ x: 20, y: 20 }}>{children}</StyledList>,
+    <StyledList position={position}>{children}</StyledList>,
     document.body
   );
 }
