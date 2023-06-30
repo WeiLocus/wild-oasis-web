@@ -26,22 +26,23 @@ const FilterButton = styled.button`
   }
 `;
 
-function Filter() {
-  const [searchParams, setSearchParams] = useSearchParams()
+function Filter({ filterField, options }) {
+  const [searchParams, setSearchParams] = useSearchParams();
   // set value into the URL
   function handleClick(value) {
-    searchParams.set("discount", value)
-    setSearchParams(searchParams)
+    searchParams.set("discount", value);
+    setSearchParams(searchParams);
   }
   return (
     <StyledFilter>
-      <FilterButton onClick={() => handleClick("all")}>All</FilterButton>
-      <FilterButton onClick={() => handleClick("no-discount")}>
-        No discount
-      </FilterButton>
-      <FilterButton onClick={() => handleClick("with-discount")}>
-        With discount
-      </FilterButton>
+      {options.map((option) => (
+        <FilterButton
+          key={option.value}
+          onClick={() => handleClick(option.value)}
+        >
+          {option.label}
+        </FilterButton>
+      ))}
     </StyledFilter>
   );
 }
