@@ -9,14 +9,15 @@ const StyledSelect = styled.select`
   font-weight: 500;
   border: 1px solid
     ${(props) =>
-      props.type === "white"
-        ? "var(--color-grey-100)"
-        : "var(--color-grey-300)"};
+    props.type === "white"
+      ? "var(--color-grey-100)"
+      : "var(--color-grey-300)"};
 `;
 
-function Select({ options, value, ...props }) {
+function Select({ options, ...props }) {
+  console.log("props",props)
   return (
-    <StyledSelect value={value} {...props}>
+    <StyledSelect {...props}>
       {options.map((option) => (
         <option key={option.value} value={option.value}>{option.label}</option>
       ))}
