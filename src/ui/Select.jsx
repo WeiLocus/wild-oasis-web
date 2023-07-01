@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const StyledSelect = styled.select`
+  -webkit-appearance: none;
   padding: 0.8rem 1.2rem;
   border-radius: var(--border-radius-sm);
   background-color: var(--color-grey-0);
