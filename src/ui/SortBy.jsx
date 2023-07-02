@@ -10,7 +10,7 @@ const Container = styled.div`
     content: "";
     position: absolute;
     top: 50%;
-    right: 10%;
+    right: 2%;
     border-style: solid;
     border-width: 6px 4px 0 4px;
     border-color: var(--color-grey-700) transparent transparent transparent;

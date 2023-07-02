@@ -33,7 +33,6 @@ const Amount = styled.div`
 `;
 
 function BookingRow({ bookingsData }) {
-  console.log(bookingsData);
   const {
     id: bookingId,
     created_at,
@@ -53,7 +52,6 @@ function BookingRow({ bookingsData }) {
     "checked-out": "silver",
   };
 
-  console.log(formatDistanceFromNow(startDate));
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
