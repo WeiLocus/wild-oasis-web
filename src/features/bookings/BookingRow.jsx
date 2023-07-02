@@ -49,9 +49,9 @@ function BookingRow({ bookingsData }) {
 
   const statusToTagName = {
     unconfirmed: "blue",
-    "check-in": "green",
-    "check-out": "sliver"
-  }
+    "checked-in": "green",
+    "checked-out": "silver",
+  };
 
   console.log(formatDistanceFromNow(startDate));
   return (
