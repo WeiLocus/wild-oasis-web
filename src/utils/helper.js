@@ -8,7 +8,10 @@ export const formatCurrency = (value) =>
 
 // Return the distance between the given dates in words
 export const formatDistanceFromNow = (dateStr) => {
-  formatDistance(parseISO(dateStr), new Date(), { addSuffix: true })
-    .replace("about", "")
+  const date = formatDistance(parseISO(dateStr), new Date(), {
+    addSuffix: true,
+  })
+    .replace("about ", "")
     .replace("in", "In");
+  return date;
 };

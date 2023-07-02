@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
-import Table from "../../ui/Table";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helper";
+import Table from "../../ui/Table";
 import Modal from "../../ui/Modal";
+import Tag from "../../ui/Tag";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -45,6 +46,14 @@ function BookingRow({ bookingsData }) {
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
   } = bookingsData;
+
+  const statusToTagName = {
+    unconfirmed: "blue",
+    "check-in": "green",
+    "check-out": "sliver"
+  }
+
+  console.log(formatDistanceFromNow(startDate));
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
@@ -64,8 +73,8 @@ function BookingRow({ bookingsData }) {
           {format(new Date(endDate), "MMM dd yyyy")}
         </span>
       </Stack>
-      <div>{status}</div>
-      <div>{formatCurrency(totalPrice)}</div>
+      <Tag type={statusToTagName[status]}>{status.replace("-", "")}</Tag>
+      <Amount>{formatCurrency(totalPrice)}</Amount>
       <Modal></Modal>
     </Table.Row>
   );

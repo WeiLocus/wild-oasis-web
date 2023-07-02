@@ -10,7 +10,6 @@ function BookingTable() {
 
   if (isLoading) return <Spinner />;
 
-  console.log(bookingsData);
   if (!bookingsData.length) return <Empty resourceName="bookings" />;
   return (
     <Menus>
@@ -28,9 +27,6 @@ function BookingTable() {
           render={(booking) => (
             <BookingRow key={booking.id} bookingsData={booking} />
           )}
-          /* {bookings.map((booking) => (
-            <BookingRow key={booking.id} booking={booking} />
-          ))} */
         ></Table.Body>
       </Table>
     </Menus>
