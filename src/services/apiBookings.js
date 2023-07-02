@@ -1,11 +1,15 @@
 import supabase from "./supabase";
 import { supabaseUrl } from "./supabase";
 
-export async function getBookings() {
+export async function getBookings({ filter }) {
   // READ ALL ROWS
-  let { data, error } = await supabase
+  const query = supabase
     .from("bookings")
-    .select("*, cabins(name), guests(fullName, email)");
+    .select(
+      "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
+    );
+
+  let { data, error } = await query;
 
   if (error) {
     console.error(error);

@@ -37,11 +37,11 @@ function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentFilter = searchParams.get(filterField) || options[0].value
-  // console.log(currentFilter)
+  // console.log("currentFilter", currentFilter);
 
   // set value into the URL
   function handleClick(value) {
-    searchParams.set("discount", value);
+    searchParams.set( filterField, value);
     setSearchParams(searchParams);
   }
   return (
