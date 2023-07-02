@@ -17,7 +17,7 @@ function useBookings() {
     data: bookingsData,
     error,
   } = useQuery({
-    queryKey: ["bookings"],
+    queryKey: ["bookings", filter],
     queryFn: () => getBookings({ filter }),
   });
   return { isLoading, bookingsData, error };
