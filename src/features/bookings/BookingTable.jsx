@@ -28,6 +28,9 @@ function BookingTable() {
           render={(booking) => (
             <BookingRow key={booking.id} bookingsData={booking} />
           )}
+          /* {bookings.map((booking) => (
+            <BookingRow key={booking.id} booking={booking} />
+          ))} */
         ></Table.Body>
       </Table>
     </Menus>

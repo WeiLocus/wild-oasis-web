@@ -41,7 +41,7 @@ function CabinTable() {
           <div>discount</div>
         </Table.Header>
         <Table.Body
-          cabinData={sortedCabins}
+          data={sortedCabins}
           render={(cabin) => <CabinRow key={cabin.id} cabinData={cabin} />}
         ></Table.Body>
       </Table>
