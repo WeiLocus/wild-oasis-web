@@ -65,9 +65,9 @@ function Row({ children }) {
   const { columns } = useContext(TableContext);
   return <StyledRow role="row" columns={columns}>{children}</StyledRow>;
 }
-function Body({ cabinData,render}) {
-  if( !cabinData.length ) return <Empty>No data to show at the moment</Empty>; 
-  return <StyledBody>{cabinData.map(render)}</StyledBody>
+function Body({ data,render}) {
+  if( !data.length ) return <Empty>No data to show at the moment</Empty>; 
+  return <StyledBody>{data.map(render)}</StyledBody>
 }
 
 

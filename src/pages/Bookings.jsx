@@ -1,9 +1,17 @@
+import BookingTable from "../features/bookings/BookingTable";
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
+
 function Bookings() {
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+      <Row type="horizontal">
+        <Heading as="h1">All Bookings</Heading>
+        <p>filter/ sort</p>
+      </Row>
+      <BookingTable />
+    </>
+  );
 }
 
-export default Bookings
+export default Bookings;
