@@ -20,13 +20,13 @@ function useBookings() {
 
   const {
     isLoading,
-    data: bookingsData,
+    data: {data: bookingsData, count} = {},
     error,
   } = useQuery({
     queryKey: ["bookings", filter, sortBy],
     queryFn: () => getBookings({ filter, sortBy }),
   });
-  return { isLoading, bookingsData, error };
+  return { isLoading, bookingsData, error, count };
 }
 
 export default useBookings;
