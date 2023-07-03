@@ -1,5 +1,7 @@
 import { HiOutlineHomeModern } from "react-icons/hi2";
+import {format, isToday} from "date-fns"
 import styled from "styled-components";
+import { formatDistanceFromNow } from "../../utils/helper";
 
 const StyledBox = styled.section`
   background-color: var(--color-grey-0);
@@ -58,8 +60,17 @@ function BookingDataBox({ bookingData }) {
       <Header>
         <div>
           <HiOutlineHomeModern />
-          <p>{numNights} night in Cabin <span>{cabinName}</span></p>
+          <p>
+            {numNights} night in Cabin <span>{cabinName}</span>
+          </p>
         </div>
+        <p>
+          {format(new Date(startDate), "EEE, MMM dd yyyy")}(
+          {isToday(new Date(startDate))
+            ? "Today"
+            : formatDistanceFromNow(startDate)}
+          ) &mdash; {format(new Date(endDate), "EEE, MMM dd yyyy")}
+        </p>
       </Header>
     </StyledBox>
   );
