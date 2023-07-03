@@ -4,6 +4,7 @@ import Heading from "../../ui/Heading";
 import Tag from "../../ui/Tag";
 import { useBooking } from "./useBooking";
 import Spinner from "../../ui/Spinner";
+import ButtonText from "../../ui/ButtonText";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ function BookingDetail() {
           <Heading as="h1">Booking #{bookingId}</Heading>
           <Tag type={statusToTagName[status]}>{status.replace("-"," ")}</Tag>
         </HeadingGroup>
-        <button>&larr; Back</button>
+        <ButtonText>&larr; Back</ButtonText>
       </Row>
       Booking Detail
     </>
