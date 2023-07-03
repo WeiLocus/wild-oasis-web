@@ -1,7 +1,9 @@
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import {format, isToday} from "date-fns"
-import styled from "styled-components";
 import { formatDistanceFromNow } from "../../utils/helper";
+import styled from "styled-components";
+import { Flag } from "../../ui/Flag";
+
 
 const StyledBox = styled.section`
   background-color: var(--color-grey-0);
@@ -39,6 +41,23 @@ const Header = styled.header`
   }
 `;
 
+const Section = styled.section`
+  padding: 3.2rem 4rem 1.2rem;
+`
+
+const Guest = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+  color: var(--color-grey-500);
+
+  & p:first-of-type {
+    font-weight: 500;
+    color: var(--color-grey-700);
+  }
+`;
+
 function BookingDataBox({ bookingData }) {
   const {
     created_at,
@@ -53,7 +72,7 @@ function BookingDataBox({ bookingData }) {
     hasBreakfast,
     isPaid,
     cabins: { name: cabinName },
-    guests: { fillName: guestName, email, country, nationalID, countryFlag },
+    guests: { fullName: guestName, email, country, nationalID, countryFlag },
   } = bookingData;
   return (
     <StyledBox>
@@ -72,6 +91,18 @@ function BookingDataBox({ bookingData }) {
           ) &mdash; {format(new Date(endDate), "EEE, MMM dd yyyy")}
         </p>
       </Header>
+      <Section>
+        <Guest>
+          {countryFlag && <Flag src={countryFlag} alt={`Flag of ${country}`} />}
+          <p>
+            {guestName} {numGuests > 1 ? `+  ${numGuests - 1} guests` : ""}
+          </p>
+          <span>&bull;</span>
+          <p>{email}</p>
+          <span>&bull;</span>
+          <p>National ID {nationalID}</p>
+        </Guest>
+      </Section>
     </StyledBox>
   );
 }
