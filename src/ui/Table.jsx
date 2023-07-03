@@ -43,6 +43,17 @@ const Empty = styled.p`
   font-weight: 500;
 `
 
+const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1.2rem;
+  background-color: var(--color-grey-50);
+  // This will hide the footer when it contains no child elements.
+  &:not(:has(*)) {
+    display: none;
+  }
+`;
+
 const TableContext = createContext()
 
 function Table({ columns, children}) {
@@ -74,5 +85,6 @@ function Body({ data,render}) {
 Table.Header = Header
 Table.Row = Row
 Table.Body = Body
+Table.Footer = Footer
 
 export default Table
