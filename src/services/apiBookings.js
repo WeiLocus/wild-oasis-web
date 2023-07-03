@@ -1,7 +1,9 @@
 import supabase from "./supabase";
 import { supabaseUrl } from "./supabase";
+import { PER_PAGE } from "../utils/constants";
+import { format } from "date-fns";
 
-export async function getBookings({ filter, sortBy }) {
+export async function getBookings({ filter, sortBy, page }) {
   let query = supabase
     .from("bookings")
     .select(
@@ -18,6 +20,12 @@ export async function getBookings({ filter, sortBy }) {
     query = query.order(sortBy.field,{ascending: sortBy.direction === "asc"})
   }
 
+  // pagination
+  if (page) {
+    const from = (page - 1) * PER_PAGE
+    const to = from + PER_PAGE - 1
+    query = query.range(from, to)
+  }
   const { data, error, count } = await query;
 
   if (error) {
