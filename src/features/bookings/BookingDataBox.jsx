@@ -7,7 +7,35 @@ const StyledBox = styled.section`
   border-radius: var(--border-radius-md);
 `;
 
-const Header = styled.header``;
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+  background-color: var(--color-brand-500);
+  color: #e0e7ff;
+  font-size: 1.8rem;
+  font-weight: 500;
+
+  svg {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+
+  & div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  & span {
+    margin-left: 4px;
+    font-size: 2rem;
+    font-family: "Sono";
+  }
+`;
 
 function BookingDataBox({ bookingData }) {
   const {
