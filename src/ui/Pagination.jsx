@@ -21,6 +21,7 @@ const P = styled.p`
 
 const Buttons = styled.div`
   display: flex;
+  align-items: center;
   gap: 0.6rem;
 `;
 
@@ -86,6 +87,7 @@ function Pagination({ count }) {
           <HiChevronLeft />
           <span>Previous</span>
         </ButtonPagination>
+        <span>{currentPage}</span>
         <ButtonPagination
           onClick={nextPage}
           disabled={currentPage === totalPage}
