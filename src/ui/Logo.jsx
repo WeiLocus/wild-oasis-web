@@ -4,6 +4,8 @@ const StyledLogo = styled.div`
   text-align: center;
 `;
 
+const LogoImage = "../../public/logo-light.png";
+
 const Img = styled.img`
   width: auto;
   height: 9.6rem;
@@ -11,7 +13,7 @@ const Img = styled.img`
 function Logo() {
   return (
     <StyledLogo>
-      <Img src="./logo-light.png" alt="Logo" />
+      <Img src={LogoImage} alt="Logo" />
     </StyledLogo>
   );
 }
