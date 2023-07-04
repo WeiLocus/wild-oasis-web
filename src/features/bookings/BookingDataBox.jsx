@@ -89,6 +89,13 @@ const Price = styled.div`
   }
 `;
 
+const Footer = styled.footer`
+  text-align: right;
+  padding: 1.6rem 4rem;
+  color: var(--color-grey-500);
+  font-size: 1.2rem;
+`;
+
 function BookingDataBox({ bookingData }) {
   const {
     created_at,
@@ -145,7 +152,7 @@ function BookingDataBox({ bookingData }) {
           </DataItem>
         )}
 
-        <DataItem icon={<HiOutlineCheckCircle/>} label="Breakfast included?">
+        <DataItem icon={<HiOutlineCheckCircle />} label="Breakfast included?">
           {hasBreakfast ? "Yes" : "No"}
         </DataItem>
 
@@ -162,6 +169,9 @@ function BookingDataBox({ bookingData }) {
           <p>{isPaid ? "Paid" : "Will pay at property"}</p>
         </Price>
       </Section>
+      <Footer>
+        <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy,p")}</p>
+      </Footer>
     </StyledBox>
   );
 }
