@@ -1,9 +1,12 @@
-import { HiOutlineHomeModern } from "react-icons/hi2";
-import {format, isToday} from "date-fns"
+import {
+  HiOutlineChatBubbleBottomCenterText,
+  HiOutlineHomeModern,
+} from "react-icons/hi2";
+import { format, isToday } from "date-fns";
 import { formatDistanceFromNow } from "../../utils/helper";
 import styled from "styled-components";
-import { Flag } from "../../ui/Flag";
-
+import Flag from "../../ui/Flag";
+import DataItem from "../../ui/DataItem";
 
 const StyledBox = styled.section`
   background-color: var(--color-grey-0);
@@ -43,7 +46,7 @@ const Header = styled.header`
 
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
-`
+`;
 
 const Guest = styled.div`
   display: flex;
@@ -71,9 +74,11 @@ function BookingDataBox({ bookingData }) {
     status,
     hasBreakfast,
     isPaid,
+    observations,
     cabins: { name: cabinName },
     guests: { fullName: guestName, email, country, nationalID, countryFlag },
   } = bookingData;
+  console.log(observations)
   return (
     <StyledBox>
       <Header>
@@ -102,6 +107,14 @@ function BookingDataBox({ bookingData }) {
           <span>&bull;</span>
           <p>National ID {nationalID}</p>
         </Guest>
+        {observations && (
+          <DataItem
+            icon={<HiOutlineChatBubbleBottomCenterText />}
+            label="Observations"
+          >
+            {observations}
+          </DataItem>
+        )}
       </Section>
     </StyledBox>
   );
