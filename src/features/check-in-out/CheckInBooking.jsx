@@ -43,7 +43,11 @@ function CheckInBooking() {
       <BookingDataBox bookingData={bookingData} />
 
       <Box>
-        <CheckBox>
+        <CheckBox
+          id="confirm"
+          checked={conformPaid}
+          onChange={() => setConfirmPaid((confirm) => !confirm)}
+        >
           I confirm that {guests.fullName} has paid the total amount
         </CheckBox>
       </Box>
