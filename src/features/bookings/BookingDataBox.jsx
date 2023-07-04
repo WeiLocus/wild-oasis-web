@@ -2,9 +2,10 @@ import {
   HiOutlineChatBubbleBottomCenterText,
   HiOutlineHomeModern,
   HiOutlineCheckCircle,
+  HiOutlineCurrencyDollar,
 } from "react-icons/hi2";
 import { format, isToday } from "date-fns";
-import { formatDistanceFromNow } from "../../utils/helper";
+import { formatDistanceFromNow, formatCurrency } from "../../utils/helper";
 import styled from "styled-components";
 import Flag from "../../ui/Flag";
 import DataItem from "../../ui/DataItem";
@@ -62,6 +63,32 @@ const Guest = styled.div`
   }
 `;
 
+const Price = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.4rem;
+  padding: 1.6rem 3.2rem;
+  border-radius: var(--border-radius-sm);
+
+  background-color: ${(props) =>
+    props.isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
+  color: ${(props) =>
+    props.isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
+
+  svg {
+    height: 2.4rem;
+    width: 2.4rem;
+    color: currentColor;
+  }
+
+  & p {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+`;
+
 function BookingDataBox({ bookingData }) {
   const {
     created_at,
@@ -79,7 +106,7 @@ function BookingDataBox({ bookingData }) {
     cabins: { name: cabinName },
     guests: { fullName: guestName, email, country, nationalID, countryFlag },
   } = bookingData;
-  console.log(observations)
+
   return (
     <StyledBox>
       <Header>
@@ -118,8 +145,22 @@ function BookingDataBox({ bookingData }) {
           </DataItem>
         )}
 
-        <DataItem icon={<HiOutlineCheckCircle/>} label="Breakfast included?">{hasBreakfast ? "Yes" : "No"}</DataItem>
+        <DataItem icon={<HiOutlineCheckCircle/>} label="Breakfast included?">
+          {hasBreakfast ? "Yes" : "No"}
+        </DataItem>
 
+        <Price isPaid={isPaid}>
+          <DataItem icon={<HiOutlineCurrencyDollar />} label="Total Price">
+            {formatCurrency(totalPrice)}
+            {hasBreakfast &&
+              `
+              ${formatCurrency(cabinPrice)} cabin + ${formatCurrency(
+                extrasPrice
+              )} breakfast
+            `}
+          </DataItem>
+          <p>{isPaid ? "Paid" : "Will pay at property"}</p>
+        </Price>
       </Section>
     </StyledBox>
   );
