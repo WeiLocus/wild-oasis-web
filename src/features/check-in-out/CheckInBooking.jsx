@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "../bookings/useBooking";
 import Row from "../../ui/Row";
@@ -19,10 +19,14 @@ const Box = styled.div`
 `;
 
 function CheckInBooking() {
-  const [conformPaid, setConfirmPaid] = useState();
+  const [conformPaid, setConfirmPaid] = useState(false);
 
   const moveBack = useMoveBack();
   const { isLoading, booking: bookingData } = useBooking();
+
+  useEffect(() => {
+    setConfirmPaid(bookingData?.isPaid ?? false);
+  }, [bookingData]);
 
   if (isLoading) return <Spinner />;
   const {
@@ -33,6 +37,7 @@ function CheckInBooking() {
     hasBreakfast,
     numNights,
   } = bookingData;
+
   return (
     <>
       <Row type="horizontal">
@@ -46,6 +51,7 @@ function CheckInBooking() {
         <CheckBox
           id="confirm"
           checked={conformPaid}
+          disabled={conformPaid}
           onChange={() => setConfirmPaid((confirm) => !confirm)}
         >
           I confirm that {guests.fullName} has paid the total amount
@@ -53,7 +59,7 @@ function CheckInBooking() {
       </Box>
 
       <ButtonGroup>
-        <Button>Check in booking #{bookingId}</Button>
+        <Button disabled={!conformPaid}>Check in booking #{bookingId}</Button>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

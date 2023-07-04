@@ -18,10 +18,13 @@ const StyledCheckbox = styled.div`
   }
 `;
 
-function CheckBox({ children, checked, id, onChange }) {
+// rest operator
+function CheckBox({ children,id, ...props}) {
   return (
     <StyledCheckbox>
-      <input type="checkbox" id={id} checked={checked} onChange={onChange} />
+      <input
+        type="checkbox" {...props}
+      />
       <label htmlFor={id}>{children}</label>
     </StyledCheckbox>
   );
