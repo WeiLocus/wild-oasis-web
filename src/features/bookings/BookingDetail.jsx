@@ -7,6 +7,8 @@ import Tag from "../../ui/Tag";
 import Spinner from "../../ui/Spinner";
 import ButtonText from "../../ui/ButtonText";
 import BookingDataBox from "./BookingDataBox";
+import Button from "../../ui/Button";
+import ButtonGroup from "../../ui/ButtonGroup";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -36,7 +38,12 @@ function BookingDetail() {
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
-      <BookingDataBox bookingData={bookingData}/>
+      <BookingDataBox bookingData={bookingData} />
+      <ButtonGroup>
+        <Button variation="secondary" onClick={moveBack}>
+          Back
+        </Button>
+      </ButtonGroup>
     </>
   );
 }

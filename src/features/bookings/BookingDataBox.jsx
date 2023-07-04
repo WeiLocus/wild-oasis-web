@@ -106,7 +106,6 @@ function BookingDataBox({ bookingData }) {
     cabinPrice,
     extrasPrice,
     totalPrice,
-    status,
     hasBreakfast,
     isPaid,
     observations,
