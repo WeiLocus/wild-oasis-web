@@ -1,6 +1,7 @@
 import {
   HiOutlineChatBubbleBottomCenterText,
   HiOutlineHomeModern,
+  HiOutlineCheckCircle,
 } from "react-icons/hi2";
 import { format, isToday } from "date-fns";
 import { formatDistanceFromNow } from "../../utils/helper";
@@ -107,6 +108,7 @@ function BookingDataBox({ bookingData }) {
           <span>&bull;</span>
           <p>National ID {nationalID}</p>
         </Guest>
+
         {observations && (
           <DataItem
             icon={<HiOutlineChatBubbleBottomCenterText />}
@@ -115,6 +117,9 @@ function BookingDataBox({ bookingData }) {
             {observations}
           </DataItem>
         )}
+
+        <DataItem icon={<HiOutlineCheckCircle/>} label="Breakfast included?">{hasBreakfast ? "Yes" : "No"}</DataItem>
+
       </Section>
     </StyledBox>
   );
