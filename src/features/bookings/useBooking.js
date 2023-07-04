@@ -19,19 +19,3 @@ export function useBooking() {
 
   return { isLoading, booking, error };
 }
-
-export async function updatedBooking(id, obj) {
-  const { data, error } = await supabase
-    .from("bookings")
-    .update(obj)
-    .eq("id", id)
-    .select()
-    .single()
-
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be updated");
-  }
-
-  return data
-}
