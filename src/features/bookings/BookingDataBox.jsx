@@ -159,10 +159,10 @@ function BookingDataBox({ bookingData }) {
           <DataItem icon={<HiOutlineCurrencyDollar />} label="Total Price">
             {formatCurrency(totalPrice)}
             {hasBreakfast &&
-              `
+              `(
               ${formatCurrency(cabinPrice)} cabin + ${formatCurrency(
                 extrasPrice
-              )} breakfast
+              )} breakfast)
             `}
           </DataItem>
           <p>{isPaid ? "Paid" : "Will pay at property"}</p>

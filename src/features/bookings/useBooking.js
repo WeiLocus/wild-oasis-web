@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getBookingDetail } from "../../services/apiBookings";
 import { useParams } from "react-router-dom";
+import supabase from "../../services/supabase";
 
 export function useBooking() {
   const { bookingId } = useParams();
@@ -10,7 +11,7 @@ export function useBooking() {
     data: booking,
     error,
   } = useQuery({
-    queryKey: ["booking"],
+    queryKey: ["booking", bookingId],
     queryFn: () => getBookingDetail(bookingId),
     // react query try to fetch data three times by default
     retry: false,
