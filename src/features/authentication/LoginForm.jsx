@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLogin } from "./useLogin";
 import Form from "../../ui/Form";
 import FormRowVertical from "../../ui/FormRowVertical";
 import Input from "../../ui/Input";
@@ -8,8 +9,11 @@ function LoginForm() {
   const [email, setEmail] = useState("yang@example.com");
   const [password, setPassword] = useState("2023");
 
+  const { isLoading, login } = useLogin();
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
+    if (!email || !password) return;
+    login({email, password})
   }
 
   return (
