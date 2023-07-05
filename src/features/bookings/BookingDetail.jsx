@@ -1,6 +1,7 @@
 import { useBooking } from "./useBooking";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout";
 import styled from "styled-components";
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
@@ -18,8 +19,9 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const  navigate = useNavigate()
+  const navigate = useNavigate();
   const { isLoading, booking: bookingData } = useBooking();
+  const { isCheckout, checkoutConfirm } = useCheckout();
   const moveBack = useMoveBack();
   if (isLoading) return <Spinner />;
 
@@ -41,10 +43,15 @@ function BookingDetail() {
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
       <BookingDataBox bookingData={bookingData} />
+
+      {/* Render buttons based on state conditions  */}
       <ButtonGroup>
         {status === "unconfirmed" && (
-          <Button onClick={()=> navigate(`/checkin/${bookingId}`)}>Check in</Button>
+          <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
+            Check in
+          </Button>
         )}
+        {status === "checked-in" && <Button onClick={() => checkoutConfirm(bookingId)}>Check out</Button>}
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

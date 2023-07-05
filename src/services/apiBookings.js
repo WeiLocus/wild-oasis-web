@@ -56,7 +56,6 @@ export async function getBookingDetail(id) {
 }
 
 export async function updatedBooking(id, obj) {
-  console.log(obj)
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)

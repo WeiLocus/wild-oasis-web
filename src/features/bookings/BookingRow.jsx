@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { format, isToday } from "date-fns";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helper";
 import { useNavigate } from "react-router-dom";
+import { useCheckout } from "../check-in-out/useCheckout";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
 import Menus from "../../ui/Menus";
@@ -36,6 +37,8 @@ const Amount = styled.div`
 
 function BookingRow({ bookingsData }) {
   const navigate = useNavigate();
+  const { isCheckout, checkoutConfirm } = useCheckout();
+
   const {
     id: bookingId,
     created_at,
@@ -76,7 +79,7 @@ function BookingRow({ bookingsData }) {
       </Stack>
       <Tag type={statusToTagName[status]}>{status.replace("-", "")}</Tag>
       <Amount>{formatCurrency(totalPrice)}</Amount>
-      
+
       {/* Render buttons based on state conditions  */}
       <Menus.Menu>
         <Menus.Toggle id={bookingId}></Menus.Toggle>
@@ -97,7 +100,11 @@ function BookingRow({ bookingsData }) {
           )}
 
           {status === "checked-in" && (
-            <Menus.Button icon={<HiArrowUpOnSquare />} ocClick={() => {}}>
+            <Menus.Button
+              icon={<HiArrowUpOnSquare />}
+              disabled={isCheckout}
+              onClick={() => checkoutConfirm(bookingId)}
+            >
               Check out
             </Menus.Button>
           )}
