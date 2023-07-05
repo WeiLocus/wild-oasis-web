@@ -1,9 +1,26 @@
+import styled from "styled-components";
+import Logo from "../ui/Logo";
+import Heading from "../ui/Heading";
+import LoginForm from "../features/authentication/LoginForm";
+
+const LoginLayout = styled.main`
+  display: grid;
+  grid-template-columns: 48rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+  min-height: 100vh;
+  background-color: var(--color-grey-50);
+`
+
 function Login() {
   return (
-    <div>
-      
-    </div>
-  )
+    <LoginLayout>
+      <Logo />
+      <Heading as="h3">Log in to your account</Heading>
+      <LoginForm />
+    </LoginLayout>
+  );
 }
 
-export default Login
+export default Login;
