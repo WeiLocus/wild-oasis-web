@@ -55,6 +55,7 @@ export async function getBookingDetail(id) {
   return data
 }
 
+// update
 export async function updatedBooking(id, obj) {
   const { data, error } = await supabase
     .from("bookings")
@@ -69,4 +70,18 @@ export async function updatedBooking(id, obj) {
   }
 
   return data;
+}
+
+// delete
+export async function deleteBooking(id) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id",id);
+  
+    if (error) {
+      console.error(error);
+      throw new Error("Booking could not be deleted");
+    }
+  return data
 }
