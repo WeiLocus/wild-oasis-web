@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
 import Menus from "../../ui/Menus";
-import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -76,6 +76,8 @@ function BookingRow({ bookingsData }) {
       </Stack>
       <Tag type={statusToTagName[status]}>{status.replace("-", "")}</Tag>
       <Amount>{formatCurrency(totalPrice)}</Amount>
+      
+      {/* Render buttons based on state conditions  */}
       <Menus.Menu>
         <Menus.Toggle id={bookingId}></Menus.Toggle>
         <Menus.List id={bookingId}>
@@ -85,14 +87,20 @@ function BookingRow({ bookingsData }) {
           >
             See details
           </Menus.Button>
-          { status === "unconfirmed" && 
-            (<Menus.Button
+          {status === "unconfirmed" && (
+            <Menus.Button
               icon={<HiArrowDownOnSquare />}
               onClick={() => navigate(`/checkin/${bookingId}`)}
             >
               Check in
-            </Menus.Button>)
-          }
+            </Menus.Button>
+          )}
+
+          {status === "checked-in" && (
+            <Menus.Button icon={<HiArrowUpOnSquare />} ocClick={() => {}}>
+              Check out
+            </Menus.Button>
+          )}
         </Menus.List>
       </Menus.Menu>
     </Table.Row>
