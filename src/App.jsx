@@ -14,6 +14,7 @@ import AppLayout from "./ui/AppLayout";
 import Booking from "./pages/Booking";
 import { Toaster } from "react-hot-toast";
 import Checkin from "./pages/Checkin";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const basename = import.meta.env.VITE_PUBLIC_URL;
 
@@ -33,7 +34,13 @@ function App() {
       <GlobalStyles />
       <BrowserRouter basename={basename}>
         <Routes>
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
