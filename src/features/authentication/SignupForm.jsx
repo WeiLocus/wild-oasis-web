@@ -5,7 +5,7 @@ import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 
 function SignupForm() {
-  const { register, formState } = useForm();
+  const { register, formState, getValues } = useForm();
   const { errors } = formState;
   return (
     <Form>
@@ -20,14 +20,26 @@ function SignupForm() {
         <Input
           text="email"
           id="email"
-          {...register("email", { required: "This field is required" })}
+          {...register("email", {
+            required: "This field is required",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "Please provide a valid email address",
+            },
+          })}
         />
       </FormRow>
       <FormRow label="Password  (min 8 characters)">
         <Input
           text="password"
           id="password"
-          {...register("password", { required: "This field is required" })}
+          {...register("password", {
+            required: "This field is required",
+            minLength: {
+              value: 8,
+              message: "Password needs a minimum 8 characters",
+            },
+          })}
         />
       </FormRow>
       <FormRow label="Repeat password">
@@ -36,6 +48,8 @@ function SignupForm() {
           id="passwordConfirm"
           {...register("passwordConfirm", {
             required: "This field is required",
+            validate: (value) =>
+              value === getValues().password || "Password need to match",
           })}
         />
       </FormRow>
