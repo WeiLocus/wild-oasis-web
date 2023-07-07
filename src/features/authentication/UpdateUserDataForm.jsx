@@ -29,6 +29,11 @@ function UpdateUserDataForm() {
     })
   }
 
+  function handleCancel() {
+    setFullName(currentFullName)
+    setAvatar(null)
+  }
+
   return (
     <Form onSubmit={handleSubmit}>
       <FormRow label="Email">
@@ -52,7 +57,7 @@ function UpdateUserDataForm() {
         />
       </FormRow>
       <FormRow>
-        <Button variation="secondary" type="reset" disabled={isUpdating}>
+        <Button variation="secondary" type="reset" disabled={isUpdating} onClick={handleCancel}>
           Cancel
         </Button>
         <Button disabled={isUpdating}>Update account</Button>
