@@ -5,20 +5,25 @@ import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 
 function SignupForm() {
-  const { register, formState, getValues } = useForm();
+  const { register, formState, getValues, handleSubmit } = useForm();
   const { errors } = formState;
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Full name">
         <Input
-          text="text"
+          type="text"
           id="fullName"
           {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
       <FormRow label="Email">
         <Input
-          text="email"
+          type="email"
           id="email"
           {...register("email", {
             required: "This field is required",
@@ -31,7 +36,7 @@ function SignupForm() {
       </FormRow>
       <FormRow label="Password  (min 8 characters)">
         <Input
-          text="password"
+          type="password"
           id="password"
           {...register("password", {
             required: "This field is required",
@@ -44,7 +49,7 @@ function SignupForm() {
       </FormRow>
       <FormRow label="Repeat password">
         <Input
-          text="password"
+          type="password"
           id="passwordConfirm"
           {...register("passwordConfirm", {
             required: "This field is required",
