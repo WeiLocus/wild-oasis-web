@@ -7,6 +7,7 @@ import { HiOutlineUser } from "react-icons/hi2"
 const StyledHeaderMenu = styled.ul`
   display: flex;
   gap: 0.4rem;
+  margin: 0;
 `
 
 function HeaderMenu() {

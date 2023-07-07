@@ -3,7 +3,11 @@ import HeaderMenu from "./HeaderMenu";
 import UserAvatar from "../features/authentication/UserAvatar";
 
 const StyledHeader = styled.header`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   padding: 1.2rem 4.8rem;
+  gap: 2rem;
   border-bottom: 1px solid var(--color-grey-100);
   border-right: 1px solid var(--color-grey-100);
 `;
