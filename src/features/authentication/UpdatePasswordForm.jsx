@@ -6,13 +6,18 @@ import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 
 function UpdatePasswordForm() {
-  const { register, formState, getValues, handleSubmit } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
   const { isUpdating, updateUser } = useUpdateUser();
 
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit({ password }) {
+    updateUser(
+      { password },
+      {
+        onSuccess: reset,
+      }
+    );
   }
 
   return (
@@ -25,6 +30,7 @@ function UpdatePasswordForm() {
           type="password"
           id="password"
           autoComplete="current-password"
+          disabled={isUpdating}
           {...register("password", {
             required: "This field is required",
             minLength: {
@@ -42,6 +48,7 @@ function UpdatePasswordForm() {
           type="password"
           id="passwordConfirm"
           autoComplete="new-password"
+          disabled={isUpdating}
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
@@ -53,7 +60,7 @@ function UpdatePasswordForm() {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Update password</Button>
+        <Button disabled={isUpdating}>Update password</Button>
       </FormRow>
     </Form>
   );
