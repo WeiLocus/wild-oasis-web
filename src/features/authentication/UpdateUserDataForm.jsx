@@ -7,7 +7,7 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 
 function UpdateUserDataForm() {
-  const { isLoading, user } = useUser();
+  const { user } = useUser();
   const {
     email,
     user_metadata: { fullName: currentFullName },
@@ -18,7 +18,7 @@ function UpdateUserDataForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if(!fullName) return
+    if (!fullName) return;
   }
 
   return (
@@ -27,10 +27,19 @@ function UpdateUserDataForm() {
         <Input disabled value={email} />
       </FormRow>
       <FormRow label="Full name">
-        <Input type="text" id="fullName" value={currentFullName} />
+        <Input
+          type="text"
+          id="fullName"
+          value={currentFullName}
+          onChange={(e) => setFullName(e.target.value)}
+        />
       </FormRow>
       <FormRow label="Avatar image">
-        <FileInput id="avatar" accept="image/*" />
+        <FileInput
+          id="avatar"
+          accept="image/*"
+          onChange={(e) => setAvatar(e.target.files[0])}
+        />
       </FormRow>
       <FormRow>
         <Button variation="secondary" type="reset">
