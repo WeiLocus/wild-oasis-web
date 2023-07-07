@@ -14,14 +14,14 @@ function SignupForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="Full name">
+      <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
           type="text"
           id="fullName"
           {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
-      <FormRow label="Email">
+      <FormRow label="Email" error={errors?.email?.message}>
         <Input
           type="email"
           id="email"
@@ -34,7 +34,10 @@ function SignupForm() {
           })}
         />
       </FormRow>
-      <FormRow label="Password  (min 8 characters)">
+      <FormRow
+        label="Password  (min 8 characters)"
+        error={errors?.password?.message}
+      >
         <Input
           type="password"
           id="password"
@@ -47,7 +50,7 @@ function SignupForm() {
           })}
         />
       </FormRow>
-      <FormRow label="Repeat password">
+      <FormRow label="Repeat password" error={errors?.passwordConfirm?.message}>
         <Input
           type="password"
           id="passwordConfirm"
