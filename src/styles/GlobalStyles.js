@@ -93,6 +93,7 @@ const GlobalStyle = createGlobalStyle`
   --border-radius-lg: 9px;
 }
 
+*,
 *::before,
 *::after {
   box-sizing: border-box;
