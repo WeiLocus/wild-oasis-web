@@ -13,12 +13,12 @@ const StyledUserAvatar = styled.div`
 const Avatar = styled.img`
   display: block;
   width: 4rem;
-  height: 3.6rem;
+  height: 3.8rem;
   aspect-ratio: 1;
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
-  outline: 2px solid var(--color-grey-100);
+  border: 2px solid var(--color-grey-100);
 `
 
 function UserAvatar() {
