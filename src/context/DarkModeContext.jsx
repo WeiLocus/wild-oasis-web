@@ -11,7 +11,6 @@ function DarkModeProvider({ children }) {
     systemMode,
     "isDarkMode"
   );
-  console.log("isDarkMode", isDarkMode);
 
   useEffect(() => {
     if (isDarkMode) {
