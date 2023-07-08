@@ -83,6 +83,9 @@ function Toggle({ id }) {
   const { openId, open, close, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
+  // the event will then never travel up further in the DOM
+    e.stopPropagation()
+
     // give us position
     const rectangle = e.target.closest("button").getBoundingClientRect()
     // console.log(rectangle)
@@ -104,7 +107,8 @@ function Toggle({ id }) {
 }
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
-  const ref = useClickOutside(close)
+  //listen in the bubbling phase
+  const ref = useClickOutside(close, false);
   if (openId !== id) return null;
 
   return createPortal(
