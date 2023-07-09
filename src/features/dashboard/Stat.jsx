@@ -38,11 +38,19 @@ const Title = styled.h5`
   letter-spacing: 0.5px;
 `
 
-function Stat({icon, title, color}) {
+const Value = styled.p`
+  /* line-height: 1; */
+  font-size: 2.4rem;
+  font-weight: 500;
+
+`
+
+function Stat({icon, title, color, value}) {
   return (
     <StyleStat>
       <Icon color={color}>{icon}</Icon>
       <Title>{title}</Title>
+      <Value>{value}</Value>
     </StyleStat>
   );
 }

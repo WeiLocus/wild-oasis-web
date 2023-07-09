@@ -16,11 +16,10 @@ function DashboardLayout() {
   const { isLoadingStays, stays, confirmedStays } = useRecentStays();
 
   if (isLoadingDate || isLoadingStays) return <Spinner />;
-  console.log(bookings);
 
   return (
     <StyledDashboard>
-      <Statistics />
+      <Statistics bookings={bookings} confirmedStays={confirmedStays}/>
     </StyledDashboard>
   );
 }
