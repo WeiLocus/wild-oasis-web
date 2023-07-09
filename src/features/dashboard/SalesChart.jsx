@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts"
 import Heading from "../../ui/Heading"
 
 const DashboardBox = styled.div`
@@ -17,8 +18,22 @@ function SalesChart() {
   return (
     <StyledSalesChart>
       <Heading as="h2">Sales</Heading>
+      <ResponsiveContainer height={300} width="100%">
+        <AreaChart data={OLDdata}>
+          <XAxis dataKey="label" />
+          <YAxis unit="$" />
+          <CartesianGrid  strokeDasharray="4"/>
+          <Tooltip />
+          <Area
+            dataKey="totalSales"
+            type="monotone"
+            stroke="red"
+            fill="orange"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </StyledSalesChart>
-  )
+  );
 }
 
 export default SalesChart
