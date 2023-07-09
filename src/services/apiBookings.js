@@ -1,5 +1,5 @@
+import { getToday } from "../utils/helper"
 import supabase from "./supabase";
-import { supabaseUrl } from "./supabase";
 import { PER_PAGE } from "../utils/constants";
 
 // getBookings api
@@ -84,4 +84,37 @@ export async function deleteBooking(id) {
       throw new Error("Booking could not be deleted");
     }
   return data
+}
+
+// Returns all BOOKINGS that are were created after the given date.
+// date: ISO data string
+// 比較date和 created_at (>= 參數date 和 <=的當天的最後一秒)
+export async function getBookingsAfterDate(date) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("created_at, totalPrice, extrasPrice")
+    .gte("created_at", date)
+    .lte("created_at", getToday({ end: true }));
+
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings could not get loaded");
+  }
+  return data;
+}
+
+// Returns all STAYS that are were created after the given date
+// 比較date和startDate
+export async function getStaysAfterDate(date) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, guests(fullName)")
+    .gte("startDate", date )
+    .lte("startDate", getToday())
+
+  if (error) {
+    console.error(error);
+    throw new Error("Bookings could not get loaded");
+  }
+  return data;
 }
