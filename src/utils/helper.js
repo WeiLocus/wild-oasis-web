@@ -17,8 +17,8 @@ export const formatDistanceFromNow = (dateStr) => {
 };
 
 
-// 
-// spuabase needs an ISO date string，要與supabase 的creates_at 做準確的比較
+ // spuabase needs an ISO date string ,string will be different on every render, we use this trick to remove any time
+// 要與supabase 的creates_at 做準確的比較
 export const getToday = function(options = {}) {
   const today = new Date();
   // options.end true，將日期設置為當天的最後一秒
