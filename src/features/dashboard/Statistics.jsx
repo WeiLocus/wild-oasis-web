@@ -14,6 +14,9 @@ function Statistics({ bookings, confirmedStays }) {
   // stat2
   const sales = bookings.reduce((acc, current) => acc + current.totalPrice, 0);
 
+  // stat3
+  const checkins = confirmedStays.length
+
   return (
     <>
       <Stat
@@ -30,7 +33,8 @@ function Statistics({ bookings, confirmedStays }) {
         value={formatCurrency(sales)}
       />
 
-      <Stat icon={<HiOutlineCalendarDays />} title="Check ins" color="indigo" />
+      <Stat icon={<HiOutlineCalendarDays />} title="Check ins" color="indigo"
+      value={checkins} />
 
       <Stat
         icon={<HiOutlineChartBar />}
