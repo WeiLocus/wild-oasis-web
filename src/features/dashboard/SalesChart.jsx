@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import {eachDayOfInterval, subDays} from "date-fns"
 import Heading from "../../ui/Heading";
 import { useDarkMode } from "../../context/DarkModeContext";
 
@@ -29,7 +30,7 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-function SalesChart() {
+function SalesChart({ bookings, numDays}) {
   const { isDarkMode } = useDarkMode();
   const colors = isDarkMode
     ? {
@@ -43,7 +44,13 @@ function SalesChart() {
         extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
         text: "#374151",
         background: "#fff",
-      };
+      }; 
+  
+  const allDates = eachDayOfInterval({
+    start: subDays(new Date(), numDays - 1),
+    end: new Date()
+  })
+  console.log(allDates)
 
   return (
     <StyledSalesChart>
