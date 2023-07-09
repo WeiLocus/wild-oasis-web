@@ -23,5 +23,5 @@ export function useRecentStays() {
   );
   console.log("stays",stays)
 
-  return {isLoadingStays, stays, confirmedStays}
+  return {isLoadingStays, stays, confirmedStays, numDays}
 }
