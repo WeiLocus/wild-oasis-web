@@ -721,27 +721,27 @@ to {
   color: var(--color-green-700);
   font-weight: 500;
   font-family: "Sono";
-`;function iP({cabinData:e}){const{isDeleting:t,deleteCabin:r}=jE(),{isCreating:n,createCabin:i}=Xv(),{id:s,name:o,maxCapacity:a,regularPrice:l,discount:u,image:c,description:d}=e;function h(){i({name:`Copy of ${o}`,maxCapacity:a,regularPrice:l,discount:u,image:c,description:d})}return f.jsxs(Ct.Row,{children:[f.jsx(eP,{src:c}),f.jsx(tP,{children:o}),f.jsxs("div",{children:["Fits up to ",a," guests"]}),f.jsx(rP,{children:Gt(l)}),u?f.jsx(nP,{children:Gt(u)}):f.jsx("span",{children:"—"}),f.jsx("div",{children:f.jsx(at,{children:f.jsxs(Ve.Menu,{children:[f.jsx(Ve.Toggle,{id:s}),f.jsxs(Ve.List,{id:s,children:[f.jsx(Ve.Button,{icon:f.jsx(Hb,{}),onClick:h,children:"Duplicate"}),f.jsx(at.Open,{opens:"edit",children:f.jsx(Ve.Button,{icon:f.jsx(Vb,{}),children:"Edit"})}),f.jsx(at.Open,{opens:"delete",children:f.jsx(Ve.Button,{icon:f.jsx(yv,{}),children:"Delete"})})]}),f.jsx(at.Window,{name:"edit",children:f.jsx(lg,{cabinToEdit:e})}),f.jsx(at.Window,{name:"delete",children:f.jsx(Id,{resourceName:"cabins",disabled:t,onConfirm:()=>r(s)})})]})})})]})}function sP(){const{isLoading:e,cabinsData:t}=OE(),[r]=Ds(),n=r.get("discount")||"all";if(e)return f.jsx(Ci,{});if(!t.length)return f.jsx(jd,{resourceName:"cabins"});let i;n==="all"&&(i=t),n==="no-discount"&&(i=t.filter(c=>c.discount===0)),n==="with-discount"&&(i=t.filter(c=>c.discount>0));const s=r.get("sortBy")||"startDate-asc",[o,a]=s.split("-"),l=a==="asc"?1:-1,u=i.sort((c,d)=>(c[o]-d[o])*l);return f.jsx(Ve,{children:f.jsxs(Ct,{columns:"0.6fr 1.8fr 2.2fr 1fr 1fr 1fr",children:[f.jsxs(Ct.Header,{children:[f.jsx("div",{}),f.jsx("div",{children:"name"}),f.jsx("div",{children:"capacity"}),f.jsx("div",{children:"Price"}),f.jsx("div",{children:"discount"})]}),f.jsx(Ct.Body,{data:u,render:c=>f.jsx(iP,{cabinData:c},c.id)})]})})}function oP(){return f.jsx("div",{children:f.jsxs(at,{children:[f.jsx(at.Open,{opens:"cabin-form",children:f.jsx(ze,{children:"Add new cabin"})}),f.jsx(at.Window,{name:"cabin-form",children:f.jsx(lg,{})})]})})}function aP(){return f.jsxs(Gv,{children:[f.jsx(Kv,{filterField:"discount",options:[{value:"all",label:"All"},{value:"no-discount",label:"No discount"},{value:"with-discount",label:"With discount"}]}),f.jsx(Yv,{options:[{value:"name-asc",label:"Sort by name(A-Z)"},{value:"name-desc",label:"Sort by name (Z-A)"},{value:"regularPrice-asc",label:"Sort by price(low first)"},{value:"regularPrice-desc",label:"Sort by price(high first)"},{value:"maxCapacity-asc",label:"Sort by capacity (low first)"},{value:"maxCapacity-desc",label:"Sort by capacity (high first)"}]})]})}function lP(){return f.jsxs(f.Fragment,{children:[f.jsxs(ur,{type:"horizontal",children:[f.jsx(Pt,{as:"h1",children:"All cabins"}),f.jsx(aP,{})]}),f.jsxs(ur,{children:[f.jsx(sP,{}),f.jsx(oP,{})]})]})}async function uP({fullName:e,email:t,password:r}){const{data:n,error:i}=await We.auth.signUp({email:t,password:r,options:{data:{fullName:e,avatar:""}}});if(i)throw new Error(i.message);return n}async function cP({email:e,password:t}){const{data:r,error:n}=await We.auth.signInWithPassword({email:e,password:t});if(n)throw new Error(n.message);return r}async function dP(){const{data:e}=await We.auth.getSession();if(!e.session)return null;const{data:t,error:r}=await We.auth.getUser();if(r)throw new Error(r.message);return t==null?void 0:t.user}async function fP(){const{error:e}=await We.auth.signOut();if(e)throw new Error(e.message)}async function hP({fullName:e,password:t,avatar:r}){let n;t&&(n={password:t}),e&&(n={data:{fullName:e}});const{data:i,error:s}=await We.auth.updateUser(n);if(s)throw new Error(s.message);if(console.log("data",i),!r)return i;const o=`avatar-${i.user.id}-${Math.random()}`,{error:a}=await We.storage.from("avatars").upload(o,r);if(a)throw new Error(a.message);const{data:l,error:u}=await We.auth.updateUser({data:{avatar:`${fa}/storage/v1/object/public/avatars/${o}`}});if(u)throw new Error(u.message);return l}function pP(){const{isLoading:e,mutate:t}=er({mutationFn:uP,onSuccess:r=>{console.log(r),me.success("Account Successfully created! Please verify the new account from the user's email address.")}});return{isLoading:e,signup:t}}function mP(){var u,c,d,h;const{isLoading:e,signup:t}=pP(),{register:r,formState:n,getValues:i,handleSubmit:s,reset:o}=Vd(),{errors:a}=n;function l({fullName:v,email:g,password:w}){console.log(v,g,w),t({fullName:v,email:g,password:w},{onSettled:()=>o()})}return f.jsxs($n,{onSubmit:s(l),children:[f.jsx(Te,{label:"Full name",error:(u=a==null?void 0:a.fullName)==null?void 0:u.message,children:f.jsx(Ye,{type:"text",id:"fullName",disabled:e,...r("fullName",{required:"This field is required"})})}),f.jsx(Te,{label:"Email",error:(c=a==null?void 0:a.email)==null?void 0:c.message,children:f.jsx(Ye,{type:"email",id:"email",disabled:e,...r("email",{required:"This field is required",pattern:{value:/\S+@\S+\.\S+/,message:"Please provide a valid email address"}})})}),f.jsx(Te,{label:"Password  (min 8 characters)",error:(d=a==null?void 0:a.password)==null?void 0:d.message,children:f.jsx(Ye,{type:"password",id:"password",disabled:e,...r("password",{required:"This field is required",minLength:{value:8,message:"Password needs a minimum 8 characters"}})})}),f.jsx(Te,{label:"Repeat password",error:(h=a==null?void 0:a.passwordConfirm)==null?void 0:h.message,children:f.jsx(Ye,{type:"password",id:"passwordConfirm",disabled:e,...r("passwordConfirm",{required:"This field is required",validate:v=>v===i().password||"Password need to match"})})}),f.jsxs(Te,{children:[f.jsx(ze,{variation:"secondary",type:"reset",disabled:e,onClick:o,children:"Cancel"}),f.jsx(ze,{disabled:e,children:"Create bew user"})]})]})}function vP(){return f.jsxs(f.Fragment,{children:[f.jsx(Pt,{as:"h1",children:"Create a new user"}),f.jsx(mP,{})]})}async function gP(){let{data:e,error:t}=await We.from("settings").select("*").single();if(t)throw console.error(t),new Error("Settings could not be loaded");return e}async function yP(e){const{data:t,error:r}=await We.from("settings").update(e).eq("id",1).single();if(r)throw console.error(r),new Error("Settings could not be updated");return t}function ug(){const{isLoading:e,data:t,error:r}=As({queryKey:["settings"],queryFn:gP});return{isLoading:e,settingsData:t,error:r}}function wP(){const e=Rt(),{isLoading:t,mutate:r}=er({mutationFn:yP,onSuccess:()=>{me.success("Setting successfully updated!"),e.invalidateQueries({queryKey:["settings"]})},onError:n=>me.error(n.message)});return{isUpdating:t,updateSetting:r}}function xP(){const{isLoading:e,settingsData:t={}}=ug(),{isUpdating:r,updateSetting:n}=wP(),{minBookingLength:i,maxBookingLength:s,maxGuestsPerBooking:o,breakfastPrice:a}=t;if(e)return f.jsx(Ci,{});function l(u,c){const{value:d}=u.target;d&&n({[c]:d})}return f.jsxs($n,{children:[f.jsx(Te,{label:"Minimum nights/booking",children:f.jsx(Ye,{type:"number",id:"min-nights",defaultValue:i,disabled:r,onBlur:u=>l(u,"minBookingLength")})}),f.jsx(Te,{label:"Maximum nights/booking",children:f.jsx(Ye,{type:"number",id:"max-nights",defaultValue:s,disabled:r,onBlur:u=>l(u,"maxBookingLength")})}),f.jsx(Te,{label:"Maximum guests/booking",children:f.jsx(Ye,{type:"number",id:"max-guests",defaultValue:o,disabled:r,onBlur:u=>l(u,"maxGuestsPerBooking")})}),f.jsx(Te,{label:"Breakfast price",children:f.jsx(Ye,{type:"number",id:"breakfast-price",defaultValue:a,disabled:r,onBlur:u=>l(u,"breakfastPrice")})})]})}function bP(){return f.jsxs(ur,{children:[f.jsx(Pt,{as:"h1",children:"Update hotel settings"}),f.jsx(xP,{})]})}function Hd(){const{isLoading:e,data:t}=As({queryKey:["user"],queryFn:dP}),r=(t==null?void 0:t.role)==="authenticated";return{isLoading:e,user:t,isAuthenticated:r}}function cg(){const e=Rt(),{isLoading:t,mutate:r}=er({mutationFn:hP,onSuccess:({user:n})=>{me.success("User account successfully updated"),e.setQueryData(["user"],n)},onError:n=>me.error(n.message)});return{isUpdating:t,updateUser:r}}function SP(){const{user:e}=Hd(),{email:t,user_metadata:{fullName:r}}=e,{isUpdating:n,updateUser:i}=cg(),[s,o]=_.useState(r),[a,l]=_.useState(null);function u(d){d.preventDefault(),s&&i({fullName:s,avatar:a},{onSuccess:()=>{l(null),d.target.reset()}})}function c(){o(r),l(null)}return f.jsxs($n,{onSubmit:u,children:[f.jsx(Te,{label:"Email",children:f.jsx(Ye,{disabled:!0,value:t})}),f.jsx(Te,{label:"Full name",children:f.jsx(Ye,{type:"text",id:"fullName",value:s,onChange:d=>o(d.target.value),disabled:n})}),f.jsx(Te,{label:"Avatar image",children:f.jsx(ag,{id:"avatar",accept:"image/*",onChange:d=>l(d.target.files[0]),disabled:n})}),f.jsxs(Te,{children:[f.jsx(ze,{variation:"secondary",type:"reset",disabled:n,onClick:c,children:"Cancel"}),f.jsx(ze,{disabled:n,children:"Update account"})]})]})}function kP(){var u,c;const{register:e,formState:t,getValues:r,handleSubmit:n,reset:i}=Vd(),{errors:s}=t,{isUpdating:o,updateUser:a}=cg();function l({password:d}){a({password:d},{onSuccess:i})}return f.jsxs($n,{onSubmit:n(l),children:[f.jsx(Te,{label:"New password (min 8 chars)",error:(u=s==null?void 0:s.password)==null?void 0:u.message,children:f.jsx(Ye,{type:"password",id:"password",autoComplete:"current-password",disabled:o,...e("password",{required:"This field is required",minLength:{value:8,message:"Password needs a minimum 8 characters"}})})}),f.jsx(Te,{label:"Confirm password",error:(c=s==null?void 0:s.passwordConfirm)==null?void 0:c.message,children:f.jsx(Ye,{type:"password",id:"passwordConfirm",autoComplete:"new-password",disabled:o,...e("passwordConfirm",{required:"This field is required",validate:d=>d===r().password||"Password need to match"})})}),f.jsxs(Te,{children:[f.jsx(ze,{variation:"secondary",type:"reset",children:"Cancel"}),f.jsx(ze,{disabled:o,children:"Update password"})]})]})}function _P(){return f.jsxs(f.Fragment,{children:[f.jsx(Pt,{as:"h1",children:"Update your account"}),f.jsxs(ur,{children:[f.jsx(Pt,{as:"h3",children:"Update account information"}),f.jsx(SP,{})]}),f.jsxs(ur,{children:[f.jsx(Pt,{as:"h3",children:"Update password"}),f.jsx(kP,{})]})]})}const CP=U.div`
+`;function iP({cabinData:e}){const{isDeleting:t,deleteCabin:r}=jE(),{isCreating:n,createCabin:i}=Xv(),{id:s,name:o,maxCapacity:a,regularPrice:l,discount:u,image:c,description:d}=e;function h(){i({name:`Copy of ${o}`,maxCapacity:a,regularPrice:l,discount:u,image:c,description:d})}return f.jsxs(Ct.Row,{children:[f.jsx(eP,{src:c}),f.jsx(tP,{children:o}),f.jsxs("div",{children:["Fits up to ",a," guests"]}),f.jsx(rP,{children:Gt(l)}),u?f.jsx(nP,{children:Gt(u)}):f.jsx("span",{children:"—"}),f.jsx("div",{children:f.jsx(at,{children:f.jsxs(Ve.Menu,{children:[f.jsx(Ve.Toggle,{id:s}),f.jsxs(Ve.List,{id:s,children:[f.jsx(Ve.Button,{icon:f.jsx(Hb,{}),onClick:h,children:"Duplicate"}),f.jsx(at.Open,{opens:"edit",children:f.jsx(Ve.Button,{icon:f.jsx(Vb,{}),children:"Edit"})}),f.jsx(at.Open,{opens:"delete",children:f.jsx(Ve.Button,{icon:f.jsx(yv,{}),children:"Delete"})})]}),f.jsx(at.Window,{name:"edit",children:f.jsx(lg,{cabinToEdit:e})}),f.jsx(at.Window,{name:"delete",children:f.jsx(Id,{resourceName:"cabins",disabled:t,onConfirm:()=>r(s)})})]})})})]})}function sP(){const{isLoading:e,cabinsData:t}=OE(),[r]=Ds(),n=r.get("discount")||"all";if(e)return f.jsx(Ci,{});if(!t.length)return f.jsx(jd,{resourceName:"cabins"});let i;n==="all"&&(i=t),n==="no-discount"&&(i=t.filter(c=>c.discount===0)),n==="with-discount"&&(i=t.filter(c=>c.discount>0));const s=r.get("sortBy")||"startDate-asc",[o,a]=s.split("-"),l=a==="asc"?1:-1,u=i.sort((c,d)=>(c[o]-d[o])*l);return f.jsx(Ve,{children:f.jsxs(Ct,{columns:"0.6fr 1.8fr 2.2fr 1fr 1fr 1fr",children:[f.jsxs(Ct.Header,{children:[f.jsx("div",{}),f.jsx("div",{children:"name"}),f.jsx("div",{children:"capacity"}),f.jsx("div",{children:"Price"}),f.jsx("div",{children:"discount"})]}),f.jsx(Ct.Body,{data:u,render:c=>f.jsx(iP,{cabinData:c},c.id)})]})})}function oP(){return f.jsx("div",{children:f.jsxs(at,{children:[f.jsx(at.Open,{opens:"cabin-form",children:f.jsx(ze,{children:"Add new cabin"})}),f.jsx(at.Window,{name:"cabin-form",children:f.jsx(lg,{})})]})})}function aP(){return f.jsxs(Gv,{children:[f.jsx(Kv,{filterField:"discount",options:[{value:"all",label:"All"},{value:"no-discount",label:"No discount"},{value:"with-discount",label:"With discount"}]}),f.jsx(Yv,{options:[{value:"name-asc",label:"Sort by name(A-Z)"},{value:"name-desc",label:"Sort by name (Z-A)"},{value:"regularPrice-asc",label:"Sort by price(low first)"},{value:"regularPrice-desc",label:"Sort by price(high first)"},{value:"maxCapacity-asc",label:"Sort by capacity (low first)"},{value:"maxCapacity-desc",label:"Sort by capacity (high first)"}]})]})}function lP(){return f.jsxs(f.Fragment,{children:[f.jsxs(ur,{type:"horizontal",children:[f.jsx(Pt,{as:"h1",children:"All cabins"}),f.jsx(aP,{})]}),f.jsxs(ur,{children:[f.jsx(sP,{}),f.jsx(oP,{})]})]})}async function uP({fullName:e,email:t,password:r}){const{data:n,error:i}=await We.auth.signUp({email:t,password:r,options:{data:{fullName:e,avatar:""}}});if(i)throw new Error(i.message);return n}async function cP({email:e,password:t}){const{data:r,error:n}=await We.auth.signInWithPassword({email:e,password:t});if(n)throw new Error(n.message);return r}async function dP(){const{data:e}=await We.auth.getSession();if(!e.session)return null;const{data:t,error:r}=await We.auth.getUser();if(r)throw new Error(r.message);return t==null?void 0:t.user}async function fP(){const{error:e}=await We.auth.signOut();if(e)throw new Error(e.message)}async function hP({fullName:e,password:t,avatar:r}){let n;t&&(n={password:t}),e&&(n={data:{fullName:e}});const{data:i,error:s}=await We.auth.updateUser(n);if(s)throw new Error(s.message);if(console.log("data",i),!r)return i;const o=`avatar-${i.user.id}-${Math.random()}`,{error:a}=await We.storage.from("avatars").upload(o,r);if(a)throw new Error(a.message);const{data:l,error:u}=await We.auth.updateUser({data:{avatar:`${fa}/storage/v1/object/public/avatars/${o}`}});if(u)throw new Error(u.message);return l}function pP(){const{isLoading:e,mutate:t}=er({mutationFn:uP,onSuccess:r=>{console.log(r),me.success("Account Successfully created! Please verify the new account from the user's email address.")}});return{isLoading:e,signup:t}}function mP(){var u,c,d,h;const{isLoading:e,signup:t}=pP(),{register:r,formState:n,getValues:i,handleSubmit:s,reset:o}=Vd(),{errors:a}=n;function l({fullName:v,email:g,password:w}){console.log(v,g,w),t({fullName:v,email:g,password:w},{onSettled:()=>o()})}return f.jsxs($n,{onSubmit:s(l),children:[f.jsx(Te,{label:"Full name",error:(u=a==null?void 0:a.fullName)==null?void 0:u.message,children:f.jsx(Ye,{type:"text",id:"fullName",disabled:e,...r("fullName",{required:"This field is required"})})}),f.jsx(Te,{label:"Email",error:(c=a==null?void 0:a.email)==null?void 0:c.message,children:f.jsx(Ye,{type:"email",id:"email",disabled:e,...r("email",{required:"This field is required",pattern:{value:/\S+@\S+\.\S+/,message:"Please provide a valid email address"}})})}),f.jsx(Te,{label:"Password  (min 8 characters)",error:(d=a==null?void 0:a.password)==null?void 0:d.message,children:f.jsx(Ye,{type:"password",id:"password",disabled:e,...r("password",{required:"This field is required",minLength:{value:8,message:"Password needs a minimum 8 characters"}})})}),f.jsx(Te,{label:"Repeat password",error:(h=a==null?void 0:a.passwordConfirm)==null?void 0:h.message,children:f.jsx(Ye,{type:"password",id:"passwordConfirm",disabled:e,...r("passwordConfirm",{required:"This field is required",validate:v=>v===i().password||"Password need to match"})})}),f.jsxs(Te,{children:[f.jsx(ze,{variation:"secondary",type:"reset",disabled:e,onClick:o,children:"Cancel"}),f.jsx(ze,{disabled:e,children:"Create bew user"})]})]})}function vP(){return f.jsxs(f.Fragment,{children:[f.jsx(Pt,{as:"h1",children:"Create a new user"}),f.jsx(mP,{})]})}async function gP(){let{data:e,error:t}=await We.from("settings").select("*").single();if(t)throw console.error(t),new Error("Settings could not be loaded");return e}async function yP(e){const{data:t,error:r}=await We.from("settings").update(e).eq("id",1).single();if(r)throw console.error(r),new Error("Settings could not be updated");return t}function ug(){const{isLoading:e,data:t,error:r}=As({queryKey:["settings"],queryFn:gP});return{isLoading:e,settingsData:t,error:r}}function wP(){const e=Rt(),{isLoading:t,mutate:r}=er({mutationFn:yP,onSuccess:()=>{me.success("Setting successfully updated!"),e.invalidateQueries({queryKey:["settings"]})},onError:n=>me.error(n.message)});return{isUpdating:t,updateSetting:r}}function xP(){const{isLoading:e,settingsData:t={}}=ug(),{isUpdating:r,updateSetting:n}=wP(),{minBookingLength:i,maxBookingLength:s,maxGuestsPerBooking:o,breakfastPrice:a}=t;if(e)return f.jsx(Ci,{});function l(u,c){const{value:d}=u.target;d&&n({[c]:d})}return f.jsxs($n,{children:[f.jsx(Te,{label:"Minimum nights/booking",children:f.jsx(Ye,{type:"number",id:"min-nights",defaultValue:i,disabled:r,onBlur:u=>l(u,"minBookingLength")})}),f.jsx(Te,{label:"Maximum nights/booking",children:f.jsx(Ye,{type:"number",id:"max-nights",defaultValue:s,disabled:r,onBlur:u=>l(u,"maxBookingLength")})}),f.jsx(Te,{label:"Maximum guests/booking",children:f.jsx(Ye,{type:"number",id:"max-guests",defaultValue:o,disabled:r,onBlur:u=>l(u,"maxGuestsPerBooking")})}),f.jsx(Te,{label:"Breakfast price",children:f.jsx(Ye,{type:"number",id:"breakfast-price",defaultValue:a,disabled:r,onBlur:u=>l(u,"breakfastPrice")})})]})}function bP(){return f.jsxs(ur,{children:[f.jsx(Pt,{as:"h1",children:"Update hotel settings"}),f.jsx(xP,{})]})}function Hd(){const{isLoading:e,data:t}=As({queryKey:["user"],queryFn:dP}),r=(t==null?void 0:t.role)==="authenticated";return{isLoading:e,user:t,isAuthenticated:r}}function cg(){const e=Rt(),{isLoading:t,mutate:r}=er({mutationFn:hP,onSuccess:({user:n})=>{me.success("User account successfully updated"),e.setQueryData(["user"],n)},onError:n=>me.error(n.message)});return{isUpdating:t,updateUser:r}}function SP(){const{user:e}=Hd(),{email:t,user_metadata:{fullName:r}}=e,{isUpdating:n,updateUser:i}=cg(),[s,o]=_.useState(r),[a,l]=_.useState(null);function u(d){d.preventDefault(),s&&i({fullName:s,avatar:a},{onSuccess:()=>{l(null),d.target.reset()}})}function c(){o(r),l(null)}return f.jsxs($n,{onSubmit:u,children:[f.jsx(Te,{label:"Email",children:f.jsx(Ye,{disabled:!0,value:t})}),f.jsx(Te,{label:"Full name",children:f.jsx(Ye,{type:"text",id:"fullName",value:s,onChange:d=>o(d.target.value),disabled:n})}),f.jsx(Te,{label:"Avatar image",children:f.jsx(ag,{id:"avatar",accept:"image/*",onChange:d=>l(d.target.files[0]),disabled:n})}),f.jsxs(Te,{children:[f.jsx(ze,{variation:"secondary",type:"reset",disabled:n,onClick:c,children:"Cancel"}),f.jsx(ze,{disabled:n,children:"Update account"})]})]})}function kP(){var u,c;const{register:e,formState:t,getValues:r,handleSubmit:n,reset:i}=Vd(),{errors:s}=t,{isUpdating:o,updateUser:a}=cg();function l({password:d}){a({password:d},{onSuccess:i})}return f.jsxs($n,{onSubmit:n(l),children:[f.jsx(Te,{label:"New password (min 8 chars)",error:(u=s==null?void 0:s.password)==null?void 0:u.message,children:f.jsx(Ye,{type:"password",id:"password",autoComplete:"current-password",disabled:o,...e("password",{required:"This field is required",minLength:{value:8,message:"Password needs a minimum 8 characters"}})})}),f.jsx(Te,{label:"Confirm password",error:(c=s==null?void 0:s.passwordConfirm)==null?void 0:c.message,children:f.jsx(Ye,{type:"password",id:"passwordConfirm",autoComplete:"new-password",disabled:o,...e("passwordConfirm",{required:"This field is required",validate:d=>d===r().password||"Password need to match"})})}),f.jsxs(Te,{children:[f.jsx(ze,{variation:"secondary",type:"reset",children:"Cancel"}),f.jsx(ze,{disabled:o,children:"Update password"})]})]})}function _P(){return f.jsxs(f.Fragment,{children:[f.jsx(Pt,{as:"h1",children:"Update your account"}),f.jsxs(ur,{children:[f.jsx(Pt,{as:"h3",children:"Update account information"}),f.jsx(SP,{})]}),f.jsxs(ur,{children:[f.jsx(Pt,{as:"h3",children:"Update password"}),f.jsx(kP,{})]})]})}const CP="/wild-oasis-web/logo-light.png",EP="/wild-oasis-web/logo-dark.png",PP=U.div`
   text-align: center;
-`,EP=U.img`
+`,OP=U.img`
   width: auto;
   height: 9.6rem;
-`;function dg(){const{isDarkMode:e}=Z0(),t=e?"../../public/logo-dark.png":"../../public/logo-light.png";return f.jsx(CP,{children:f.jsx(EP,{src:t,alt:"Logo"})})}function PP(){const e=Zt(),t=Rt(),{isLoading:r,mutate:n}=er({mutationFn:({email:i,password:s})=>cP({email:i,password:s}),onSuccess:i=>{t.setQueryData(["user"],i.user),e("/dashboard")},onError:i=>{console.log("ERROR",i),me.error("Provided email or password are incorrect")}});return{isLoading:r,login:n}}const OP=U.div`
+`;function dg(){const{isDarkMode:e}=Z0(),t=e?EP:CP;return f.jsx(PP,{children:f.jsx(OP,{src:t,alt:"Logo"})})}function jP(){const e=Zt(),t=Rt(),{isLoading:r,mutate:n}=er({mutationFn:({email:i,password:s})=>cP({email:i,password:s}),onSuccess:i=>{t.setQueryData(["user"],i.user),e("/dashboard")},onError:i=>{console.log("ERROR",i),me.error("Provided email or password are incorrect")}});return{isLoading:r,login:n}}const TP=U.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   padding: 1.2rem 0;
-`,jP=U.label`
+`,RP=U.label`
   font-weight: 500;
-`;function Gl({label:e,children:t}){return f.jsxs(OP,{children:[e&&f.jsx(jP,{htmlFor:t.props.id,children:e}),t]})}function TP(e){return $e({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{d:"M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"}}]})(e)}const RP=mv`
+`;function Gl({label:e,children:t}){return f.jsxs(TP,{children:[e&&f.jsx(RP,{htmlFor:t.props.id,children:e}),t]})}function DP(e){return $e({tag:"svg",attr:{viewBox:"0 0 24 24"},child:[{tag:"path",attr:{d:"M12 22c5.421 0 10-4.579 10-10h-2c0 4.337-3.663 8-8 8s-8-3.663-8-8c0-4.336 3.663-8 8-8V2C6.579 2 2 6.58 2 12c0 5.421 4.579 10 10 10z"}}]})(e)}const $P=mv`
   to {
     transform: rotate(1turn)
   }
-`,fg=U(TP)`
+`,fg=U(DP)`
   width: 2.4rem;
   height: 2.4rem;
-  animation: ${RP} 1.5s infinite linear;
-`;function DP(){const[e,t]=_.useState(""),[r,n]=_.useState(""),{isLoading:i,login:s}=PP();function o(a){a.preventDefault(),!(!e||!r)&&s({email:e,password:r})}return f.jsxs($n,{onSubmit:o,children:[f.jsx(Gl,{label:"Email",children:f.jsx(Ye,{type:"email",id:"email",autoComplete:"username",value:e,disabled:i,onChange:a=>t(a.target.value)})}),f.jsx(Gl,{label:"Password",children:f.jsx(Ye,{type:"password",id:"password",autoComplete:"current-password",value:r,disabled:i,onChange:a=>n(a.target.value)})}),f.jsx(Gl,{children:f.jsx(ze,{size:"large",disabled:i,children:i?f.jsx(fg,{}):"Login"})})]})}const $P=U.main`
+  animation: ${$P} 1.5s infinite linear;
+`;function AP(){const[e,t]=_.useState(""),[r,n]=_.useState(""),{isLoading:i,login:s}=jP();function o(a){a.preventDefault(),!(!e||!r)&&s({email:e,password:r})}return f.jsxs($n,{onSubmit:o,children:[f.jsx(Gl,{label:"Email",children:f.jsx(Ye,{type:"email",id:"email",autoComplete:"username",value:e,disabled:i,onChange:a=>t(a.target.value)})}),f.jsx(Gl,{label:"Password",children:f.jsx(Ye,{type:"password",id:"password",autoComplete:"current-password",value:r,disabled:i,onChange:a=>n(a.target.value)})}),f.jsx(Gl,{children:f.jsx(ze,{size:"large",disabled:i,children:i?f.jsx(fg,{}):"Login"})})]})}const MP=U.main`
   display: grid;
   grid-template-columns: 48rem;
   justify-content: center;
@@ -749,14 +749,14 @@ to {
   gap: 3.2rem;
   min-height: 100vh;
   background-color: var(--color-grey-50);
-`;function AP(){return f.jsxs($P,{children:[f.jsx(dg,{}),f.jsx(Pt,{as:"h4",children:"Log in to your account"}),f.jsx(DP,{})]})}function Wd(){const e=Zt();return()=>e(-1)}const MP=U.main`
+`;function LP(){return f.jsxs(MP,{children:[f.jsx(dg,{}),f.jsx(Pt,{as:"h4",children:"Log in to your account"}),f.jsx(AP,{})]})}function Wd(){const e=Zt();return()=>e(-1)}const NP=U.main`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   gap: 1rem;
   background-color: var(--color-grey-50);
-`;function LP(){const e=Wd();return f.jsxs(MP,{children:[f.jsx(Pt,{as:"h1",children:"The page you are looking for could not be found 😢"}),f.jsx(ze,{onClick:e,size:"large",children:"← Go back"})]})}const NP=Ab`
+`;function IP(){const e=Wd();return f.jsxs(NP,{children:[f.jsx(Pt,{as:"h1",children:"The page you are looking for could not be found 😢"}),f.jsx(ze,{onClick:e,size:"large",children:"← Go back"})]})}const FP=Ab`
 :root {
   /* Indigo */
   --color-brand-50: #eef2ff;
@@ -947,18 +947,18 @@ button:has(svg) {
     height: 2.2rem;
     color: var(--color-brand-600);
   }
-`;function IP(){const e=Zt(),t=Rt(),{isLoading:r,mutate:n}=er({mutationFn:fP,onSuccess:()=>{t.removeQueries(),e("login",{replace:!0})}});return{isLoading:r,logout:n}}function FP(){const{isLoading:e,logout:t}=IP();return f.jsx(qd,{disabled:e,onClick:t,children:e?f.jsx(fg,{}):f.jsx(Fb,{})})}function UP(){const{isDarkMode:e,toggleDarkMode:t}=Z0();return f.jsx(qd,{onClick:t,children:e?f.jsx(Zb,{}):f.jsx(Xb,{})})}const zP=U.ul`
+`;function UP(){const e=Zt(),t=Rt(),{isLoading:r,mutate:n}=er({mutationFn:fP,onSuccess:()=>{t.removeQueries(),e("login",{replace:!0})}});return{isLoading:r,logout:n}}function zP(){const{isLoading:e,logout:t}=UP();return f.jsx(qd,{disabled:e,onClick:t,children:e?f.jsx(fg,{}):f.jsx(Fb,{})})}function BP(){const{isDarkMode:e,toggleDarkMode:t}=Z0();return f.jsx(qd,{onClick:t,children:e?f.jsx(Zb,{}):f.jsx(Xb,{})})}const VP=U.ul`
   display: flex;
   gap: 0.4rem;
   margin: 0;
-`;function BP(){const e=Zt();return f.jsxs(zP,{children:[f.jsx("li",{children:f.jsx(qd,{onClick:()=>e("/account"),children:f.jsx(eS,{})})}),f.jsx("li",{children:f.jsx(UP,{})}),f.jsx("li",{children:f.jsx(FP,{})})]})}const VP=U.div`
+`;function HP(){const e=Zt();return f.jsxs(VP,{children:[f.jsx("li",{children:f.jsx(qd,{onClick:()=>e("/account"),children:f.jsx(eS,{})})}),f.jsx("li",{children:f.jsx(BP,{})}),f.jsx("li",{children:f.jsx(zP,{})})]})}const WP=U.div`
   display: flex;
   align-items: center;
   gap: 1.2rem;
   color: var(--color-grey-600);
   font-weight: 500;
   font-size: 1.4rem;
-`,HP=U.img`
+`,qP=U.img`
   display: block;
   width: 4rem;
   height: 3.8rem;
@@ -967,7 +967,7 @@ button:has(svg) {
   object-position: center;
   border-radius: 50%;
   border: 2px solid var(--color-grey-100);
-`;function WP(){const{user:e}=Hd(),{fullName:t,avatar:r}=e.user_metadata;return f.jsxs(VP,{children:[f.jsx(HP,{src:r||"default-user.jpg",alt:`Avatar og ${t}`}),f.jsx("span",{children:t})]})}const qP=U.header`
+`;function QP(){const{user:e}=Hd(),{fullName:t,avatar:r}=e.user_metadata;return f.jsxs(WP,{children:[f.jsx(qP,{src:r||"default-user.jpg",alt:`Avatar og ${t}`}),f.jsx("span",{children:t})]})}const GP=U.header`
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -975,7 +975,7 @@ button:has(svg) {
   gap: 2rem;
   background-color: var(--color-grey-0);
   border-bottom: 1px solid var(--color-grey-100);
-`;function QP(){return f.jsxs(qP,{children:[f.jsx(WP,{}),f.jsx(BP,{})]})}const GP=U.ul`
+`;function KP(){return f.jsxs(GP,{children:[f.jsx(QP,{}),f.jsx(HP,{})]})}const YP=U.ul`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -1017,7 +1017,7 @@ button:has(svg) {
   &.active:visited svg {
     color: var(--color-brand-600);
   }
-`;function KP(){return f.jsx("nav",{children:f.jsxs(GP,{children:[f.jsx("li",{children:f.jsxs(Ui,{to:"/dashboard",children:[f.jsx(Jb,{}),f.jsx("span",{children:"Home"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/bookings",children:[f.jsx(qb,{}),f.jsx("span",{children:"Bookings"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/cabins",children:[f.jsx(wv,{}),f.jsx("span",{children:"Cabins"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/users",children:[f.jsx(tS,{}),f.jsx("span",{children:"Users"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/settings",children:[f.jsx(Kb,{}),f.jsx("span",{children:"Settings"})]})})]})})}const YP=U.aside`
+`;function JP(){return f.jsx("nav",{children:f.jsxs(YP,{children:[f.jsx("li",{children:f.jsxs(Ui,{to:"/dashboard",children:[f.jsx(Jb,{}),f.jsx("span",{children:"Home"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/bookings",children:[f.jsx(qb,{}),f.jsx("span",{children:"Bookings"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/cabins",children:[f.jsx(wv,{}),f.jsx("span",{children:"Cabins"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/users",children:[f.jsx(tS,{}),f.jsx("span",{children:"Users"})]})}),f.jsx("li",{children:f.jsxs(Ui,{to:"/settings",children:[f.jsx(Kb,{}),f.jsx("span",{children:"Settings"})]})})]})})}const XP=U.aside`
   /* 佔滿第一列 */
   grid-row: 1 / -1;
   display: flex;
@@ -1026,22 +1026,22 @@ button:has(svg) {
   padding: 3.2rem 2.4rem;
   border-right: 1px solid var(--color-grey-100);
   background-color: var(--color-grey-0);
-`;function JP(){return f.jsxs(YP,{children:[f.jsx(dg,{}),f.jsx(KP,{})]})}const XP=U.div`
+`;function ZP(){return f.jsxs(XP,{children:[f.jsx(dg,{}),f.jsx(JP,{})]})}const eO=U.div`
   display: grid;
   grid-template-columns: 26rem 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
-`,ZP=U.main`
+`,tO=U.main`
   padding: 4rem 4.8rem 6.4rem;
   background-color: var(--color-grey-50);
   overflow: scroll;
-`,eO=U.div`
+`,rO=U.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
   max-width: 120rem;
   margin: 0 auto;
-`;function tO(){return f.jsxs(XP,{children:[f.jsx(QP,{}),f.jsx(JP,{}),f.jsx(ZP,{children:f.jsx(eO,{children:f.jsx(Aw,{})})})]})}function hg(){const{bookingId:e}=xw(),{isLoading:t,data:r,error:n}=As({queryKey:["booking",e],queryFn:()=>y2(e),retry:!1});return{isLoading:t,booking:r,error:n}}const pg=U.button`
+`;function nO(){return f.jsxs(eO,{children:[f.jsx(KP,{}),f.jsx(ZP,{}),f.jsx(tO,{children:f.jsx(rO,{children:f.jsx(Aw,{})})})]})}function hg(){const{bookingId:e}=xw(),{isLoading:t,data:r,error:n}=As({queryKey:["booking",e],queryFn:()=>y2(e),retry:!1});return{isLoading:t,booking:r,error:n}}const pg=U.button`
   text-align: center;
   background: none;
   color: var(--color-brand-600);
@@ -1054,17 +1054,17 @@ button:has(svg) {
   &:active {
     color: var(--color-brand-700);
   }
-`,rO=U.img`
+`,iO=U.img`
   display: block;
   max-width: 2rem;
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-tiny);
-`,nO=U.div`
+`,sO=U.div`
   display: flex;
   align-items: center;
   gap: 1.6rem;
   padding: 0.8rem 0;
-`,iO=U.span`
+`,oO=U.span`
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -1075,11 +1075,11 @@ button:has(svg) {
     height: 2rem;
     color: var(--color-brand-600);
   }
-`;function Kl({icon:e,label:t,children:r}){return f.jsxs(nO,{children:[f.jsxs(iO,{children:[e,f.jsx("span",{children:t})]}),r]})}const sO=U.section`
+`;function Kl({icon:e,label:t,children:r}){return f.jsxs(sO,{children:[f.jsxs(oO,{children:[e,f.jsx("span",{children:t})]}),r]})}const aO=U.section`
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-`,oO=U.header`
+`,lO=U.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1107,9 +1107,9 @@ button:has(svg) {
     font-size: 2rem;
     font-family: "Sono";
   }
-`,aO=U.section`
+`,uO=U.section`
   padding: 3.2rem 4rem 1.2rem;
-`,lO=U.div`
+`,cO=U.div`
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -1120,7 +1120,7 @@ button:has(svg) {
     font-weight: 500;
     color: var(--color-grey-700);
   }
-`,uO=U.div`
+`,dO=U.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1142,22 +1142,22 @@ button:has(svg) {
     font-size: 1.4rem;
     font-weight: 600;
   }
-`,cO=U.footer`
+`,fO=U.footer`
   text-align: right;
   padding: 1.6rem 4rem;
   color: var(--color-grey-500);
   font-size: 1.2rem;
-`;function mg({bookingData:e}){const{created_at:t,startDate:r,endDate:n,numNights:i,numGuests:s,cabinPrice:o,extrasPrice:a,totalPrice:l,hasBreakfast:u,isPaid:c,observations:d,cabins:{name:h},guests:{fullName:v,email:g,country:w,nationalID:b,countryFlag:m}}=e;return f.jsxs(sO,{children:[f.jsxs(oO,{children:[f.jsxs("div",{children:[f.jsx(wv,{}),f.jsxs("p",{children:[i," night in Cabin ",f.jsx("span",{children:h})]})]}),f.jsxs("p",{children:[is(new Date(r),"EEE, MMM dd yyyy"),"(",Fv(new Date(r))?"Today":zv(r),") — ",is(new Date(n),"EEE, MMM dd yyyy")]})]}),f.jsxs(aO,{children:[f.jsxs(lO,{children:[m&&f.jsx(rO,{src:m,alt:`Flag of ${w}`}),f.jsxs("p",{children:[v," ",s>1?`+  ${s-1} guests`:""]}),f.jsx("span",{children:"•"}),f.jsx("p",{children:g}),f.jsx("span",{children:"•"}),f.jsxs("p",{children:["National ID ",b]})]}),d&&f.jsx(Kl,{icon:f.jsx(Qb,{}),label:"Observations",children:d}),f.jsx(Kl,{icon:f.jsx(Gb,{}),label:"Breakfast included?",children:u?"Yes":"No"}),f.jsxs(uO,{isPaid:c,children:[f.jsxs(Kl,{icon:f.jsx(Yb,{}),label:"Total Price",children:[Gt(l),u&&`(
+`;function mg({bookingData:e}){const{created_at:t,startDate:r,endDate:n,numNights:i,numGuests:s,cabinPrice:o,extrasPrice:a,totalPrice:l,hasBreakfast:u,isPaid:c,observations:d,cabins:{name:h},guests:{fullName:v,email:g,country:w,nationalID:b,countryFlag:m}}=e;return f.jsxs(aO,{children:[f.jsxs(lO,{children:[f.jsxs("div",{children:[f.jsx(wv,{}),f.jsxs("p",{children:[i," night in Cabin ",f.jsx("span",{children:h})]})]}),f.jsxs("p",{children:[is(new Date(r),"EEE, MMM dd yyyy"),"(",Fv(new Date(r))?"Today":zv(r),") — ",is(new Date(n),"EEE, MMM dd yyyy")]})]}),f.jsxs(uO,{children:[f.jsxs(cO,{children:[m&&f.jsx(iO,{src:m,alt:`Flag of ${w}`}),f.jsxs("p",{children:[v," ",s>1?`+  ${s-1} guests`:""]}),f.jsx("span",{children:"•"}),f.jsx("p",{children:g}),f.jsx("span",{children:"•"}),f.jsxs("p",{children:["National ID ",b]})]}),d&&f.jsx(Kl,{icon:f.jsx(Qb,{}),label:"Observations",children:d}),f.jsx(Kl,{icon:f.jsx(Gb,{}),label:"Breakfast included?",children:u?"Yes":"No"}),f.jsxs(dO,{isPaid:c,children:[f.jsxs(Kl,{icon:f.jsx(Yb,{}),label:"Total Price",children:[Gt(l),u&&`(
               ${Gt(o)} cabin + ${Gt(a)} breakfast)
-            `]}),f.jsx("p",{children:c?"Paid":"Will pay at property"})]})]}),f.jsx(cO,{children:f.jsxs("p",{children:["Booked ",is(new Date(t),"EEE, MMM dd yyyy,p")]})})]})}const vg=U.div`
+            `]}),f.jsx("p",{children:c?"Paid":"Will pay at property"})]})]}),f.jsx(fO,{children:f.jsxs("p",{children:["Booked ",is(new Date(t),"EEE, MMM dd yyyy,p")]})})]})}const vg=U.div`
   display: flex;
   justify-content: flex-end;
   gap: 1.2rem;
-`,dO=U.div`
+`,hO=U.div`
   display: flex;
   align-items: center;
   gap: 2.4rem;
-`;function fO(){const e=Zt(),{isLoading:t,booking:r}=hg(),{isCheckout:n,checkoutConfirm:i}=Wv(),{isDeleting:s,deleteBooking:o}=qv(),a=Wd();if(t)return f.jsx(Ci,{});if(!r)return f.jsx(jd,{});const{id:l,status:u}=r,c={unconfirmed:"blue","checked-in":"green","checked-out":"silver"};return f.jsxs(f.Fragment,{children:[f.jsxs(ur,{type:"horizontal",children:[f.jsxs(dO,{children:[f.jsxs(Pt,{as:"h1",children:["Booking #",l]}),f.jsx(Qv,{type:c[u],children:u.replace("-"," ")})]}),f.jsx(pg,{onClick:a,children:"← Back"})]}),f.jsx(mg,{bookingData:r}),f.jsxs(vg,{children:[u==="unconfirmed"&&f.jsx(ze,{onClick:()=>e(`/checkin/${l}`),children:"Check in"}),u==="checked-in"&&f.jsx(ze,{onClick:()=>i(l),disabled:n,children:"Check out"}),f.jsxs(at,{children:[f.jsx(at.Open,{opens:"delete",children:f.jsx(ze,{variation:"danger",children:"Delete Booking"})}),f.jsx(at.Window,{name:"delete",children:f.jsx(Id,{resourceName:"booking",onConfirm:()=>{o(l,{onSettled:()=>e(-1)})},disabled:s})})]}),f.jsx(ze,{variation:"secondary",onClick:a,children:"Back"})]})]})}function hO(){return f.jsx(fO,{})}function pO(){const e=Rt(),t=Zt(),{isLoading:r,mutate:n}=er({mutationFn:({bookingId:i,breakfast:s})=>Rv(i,{status:"checked-in",isPaid:!0,...s}),onSuccess:i=>{me.success(`Booking #${i.id} successfully checked in`),e.invalidateQueries({active:!0}),t("/")},onError:()=>me.error("There was an error while checking in")});return{isCheckin:r,checkinConfirm:n}}const mO=U.div`
+`;function pO(){const e=Zt(),{isLoading:t,booking:r}=hg(),{isCheckout:n,checkoutConfirm:i}=Wv(),{isDeleting:s,deleteBooking:o}=qv(),a=Wd();if(t)return f.jsx(Ci,{});if(!r)return f.jsx(jd,{});const{id:l,status:u}=r,c={unconfirmed:"blue","checked-in":"green","checked-out":"silver"};return f.jsxs(f.Fragment,{children:[f.jsxs(ur,{type:"horizontal",children:[f.jsxs(hO,{children:[f.jsxs(Pt,{as:"h1",children:["Booking #",l]}),f.jsx(Qv,{type:c[u],children:u.replace("-"," ")})]}),f.jsx(pg,{onClick:a,children:"← Back"})]}),f.jsx(mg,{bookingData:r}),f.jsxs(vg,{children:[u==="unconfirmed"&&f.jsx(ze,{onClick:()=>e(`/checkin/${l}`),children:"Check in"}),u==="checked-in"&&f.jsx(ze,{onClick:()=>i(l),disabled:n,children:"Check out"}),f.jsxs(at,{children:[f.jsx(at.Open,{opens:"delete",children:f.jsx(ze,{variation:"danger",children:"Delete Booking"})}),f.jsx(at.Window,{name:"delete",children:f.jsx(Id,{resourceName:"booking",onConfirm:()=>{o(l,{onSettled:()=>e(-1)})},disabled:s})})]}),f.jsx(ze,{variation:"secondary",onClick:a,children:"Back"})]})]})}function mO(){return f.jsx(pO,{})}function vO(){const e=Rt(),t=Zt(),{isLoading:r,mutate:n}=er({mutationFn:({bookingId:i,breakfast:s})=>Rv(i,{status:"checked-in",isPaid:!0,...s}),onSuccess:i=>{me.success(`Booking #${i.id} successfully checked in`),e.invalidateQueries({active:!0}),t("/")},onError:()=>me.error("There was an error while checking in")});return{isCheckin:r,checkinConfirm:n}}const gO=U.div`
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -1173,15 +1173,15 @@ button:has(svg) {
   & input[type="checkbox"]:disabled {
     accent-color: var(--color-brand-600);
   }
-`;function hp({children:e,id:t,...r}){return f.jsxs(mO,{children:[f.jsx("input",{type:"checkbox",...r}),f.jsx("label",{htmlFor:t,children:e})]})}const pp=U.div`
+`;function hp({children:e,id:t,...r}){return f.jsxs(gO,{children:[f.jsx("input",{type:"checkbox",...r}),f.jsx("label",{htmlFor:t,children:e})]})}const pp=U.div`
   padding: 2.4rem 4rem;
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
-`;function vO(){const[e,t]=_.useState(!1),[r,n]=_.useState(!1),i=Wd(),{isLoading:s,booking:o}=hg(),{isCheckin:a,checkinConfirm:l}=pO(),{isLoading:u,settingsData:c}=ug();if(_.useEffect(()=>{t((o==null?void 0:o.isPaid)??!1)},[o]),s||u)return f.jsx(Ci,{});const{id:d,guests:h,totalPrice:v,numGuests:g,hasBreakfast:w,numNights:b}=o,m=c.breakfastPrice*g*b;function p(){e&&l(r?{bookingId:d,breakfast:{hasBreakfast:!0,extrasPrice:m,totalPrice:v+m}}:{bookingId:d,breakfast:{}})}return f.jsxs(f.Fragment,{children:[f.jsxs(ur,{type:"horizontal",children:[f.jsxs(Pt,{as:"h1",children:["Check in booking #",d]}),f.jsx(pg,{onClick:i,children:"← Back"})]}),f.jsx(mg,{bookingData:o}),!w&&f.jsx(pp,{children:f.jsxs(hp,{id:"breakfast",checked:r,onChange:()=>{n(y=>!y),t(!1)},children:["Want to add breakfast for ",Gt(m),"?"]})}),f.jsx(pp,{children:f.jsxs(hp,{id:"confirm",checked:e,disabled:e||a,onChange:()=>t(y=>!y),children:["I confirm that ",h.fullName," has paid the total amount of"," ",r?`${Gt(v+m)} (${Gt(v)} + ${Gt(m)})`:Gt(v)]})}),f.jsxs(vg,{children:[f.jsxs(ze,{disabled:!e||a,onClick:p,children:["Check in booking #",d]}),f.jsx(ze,{variation:"secondary",onClick:i,children:"Back"})]})]})}function gO(){return f.jsx(vO,{})}const yO=U.div`
+`;function yO(){const[e,t]=_.useState(!1),[r,n]=_.useState(!1),i=Wd(),{isLoading:s,booking:o}=hg(),{isCheckin:a,checkinConfirm:l}=vO(),{isLoading:u,settingsData:c}=ug();if(_.useEffect(()=>{t((o==null?void 0:o.isPaid)??!1)},[o]),s||u)return f.jsx(Ci,{});const{id:d,guests:h,totalPrice:v,numGuests:g,hasBreakfast:w,numNights:b}=o,m=c.breakfastPrice*g*b;function p(){e&&l(r?{bookingId:d,breakfast:{hasBreakfast:!0,extrasPrice:m,totalPrice:v+m}}:{bookingId:d,breakfast:{}})}return f.jsxs(f.Fragment,{children:[f.jsxs(ur,{type:"horizontal",children:[f.jsxs(Pt,{as:"h1",children:["Check in booking #",d]}),f.jsx(pg,{onClick:i,children:"← Back"})]}),f.jsx(mg,{bookingData:o}),!w&&f.jsx(pp,{children:f.jsxs(hp,{id:"breakfast",checked:r,onChange:()=>{n(y=>!y),t(!1)},children:["Want to add breakfast for ",Gt(m),"?"]})}),f.jsx(pp,{children:f.jsxs(hp,{id:"confirm",checked:e,disabled:e||a,onChange:()=>t(y=>!y),children:["I confirm that ",h.fullName," has paid the total amount of"," ",r?`${Gt(v+m)} (${Gt(v)} + ${Gt(m)})`:Gt(v)]})}),f.jsxs(vg,{children:[f.jsxs(ze,{disabled:!e||a,onClick:p,children:["Check in booking #",d]}),f.jsx(ze,{variation:"secondary",onClick:i,children:"Back"})]})]})}function wO(){return f.jsx(yO,{})}const xO=U.div`
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: var(--color-grey-50);
-`;function wO({children:e}){const t=Zt(),{isLoading:r,isAuthenticated:n}=Hd();if(_.useEffect(()=>{!n&&!r&&t("/login")},[n,r,t]),r)return f.jsx(yO,{children:f.jsx(Ci,{})});if(n)return e}const xO="/wild-oasis-web",bO=new ux({defaultOptions:{queries:{staleTime:0}}});function SO(){return f.jsx(Fx,{children:f.jsxs(kx,{client:bO,children:[f.jsx(Nx,{initialIsOpen:!1}),f.jsx(NP,{}),f.jsx(Vw,{basename:xO,children:f.jsxs(Lw,{children:[f.jsxs(bt,{element:f.jsx(wO,{children:f.jsx(tO,{})}),children:[f.jsx(bt,{index:!0,element:f.jsx($w,{replace:!0,to:"dashboard"})}),f.jsx(bt,{path:"dashboard",element:f.jsx(Mb,{})}),f.jsx(bt,{path:"bookings",element:f.jsx(CE,{})}),f.jsx(bt,{path:"bookings/:bookingId",element:f.jsx(hO,{})}),f.jsx(bt,{path:"checkin/:bookingId",element:f.jsx(gO,{})}),f.jsx(bt,{path:"cabins",element:f.jsx(lP,{})}),f.jsx(bt,{path:"users",element:f.jsx(vP,{})}),f.jsx(bt,{path:"settings",element:f.jsx(bP,{})}),f.jsx(bt,{path:"account",element:f.jsx(_P,{})})]}),f.jsx(bt,{path:"login",element:f.jsx(AP,{})}),f.jsx(bt,{path:"*",element:f.jsx(LP,{})})]})}),f.jsx(eE,{position:"top-center",gutter:12,containerStyle:{margin:"8px"},toastOptions:{success:{duration:3e3},error:{duration:5e3},style:{padding:"16px 24px",maxWidth:"500px",color:"var(--color-grey-700)",backgroundColor:"var(--color-grey-0)",fontSize:"16px"}}})]})})}Yl.createRoot(document.getElementById("root")).render(f.jsx(Ne.StrictMode,{children:f.jsx(SO,{})}));
+`;function bO({children:e}){const t=Zt(),{isLoading:r,isAuthenticated:n}=Hd();if(_.useEffect(()=>{!n&&!r&&t("/login")},[n,r,t]),r)return f.jsx(xO,{children:f.jsx(Ci,{})});if(n)return e}const SO="/wild-oasis-web",kO=new ux({defaultOptions:{queries:{staleTime:0}}});function _O(){return f.jsx(Fx,{children:f.jsxs(kx,{client:kO,children:[f.jsx(Nx,{initialIsOpen:!1}),f.jsx(FP,{}),f.jsx(Vw,{basename:SO,children:f.jsxs(Lw,{children:[f.jsxs(bt,{element:f.jsx(bO,{children:f.jsx(nO,{})}),children:[f.jsx(bt,{index:!0,element:f.jsx($w,{replace:!0,to:"dashboard"})}),f.jsx(bt,{path:"dashboard",element:f.jsx(Mb,{})}),f.jsx(bt,{path:"bookings",element:f.jsx(CE,{})}),f.jsx(bt,{path:"bookings/:bookingId",element:f.jsx(mO,{})}),f.jsx(bt,{path:"checkin/:bookingId",element:f.jsx(wO,{})}),f.jsx(bt,{path:"cabins",element:f.jsx(lP,{})}),f.jsx(bt,{path:"users",element:f.jsx(vP,{})}),f.jsx(bt,{path:"settings",element:f.jsx(bP,{})}),f.jsx(bt,{path:"account",element:f.jsx(_P,{})})]}),f.jsx(bt,{path:"login",element:f.jsx(LP,{})}),f.jsx(bt,{path:"*",element:f.jsx(IP,{})})]})}),f.jsx(eE,{position:"top-center",gutter:12,containerStyle:{margin:"8px"},toastOptions:{success:{duration:3e3},error:{duration:5e3},style:{padding:"16px 24px",maxWidth:"500px",color:"var(--color-grey-700)",backgroundColor:"var(--color-grey-0)",fontSize:"16px"}}})]})})}Yl.createRoot(document.getElementById("root")).render(f.jsx(Ne.StrictMode,{children:f.jsx(_O,{})}));
