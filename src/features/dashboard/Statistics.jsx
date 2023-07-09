@@ -4,13 +4,17 @@ import Stat from "./Stat"
 function Statistics() {
   return (
     <>
-      <Stat icon={<HiOutlineBriefcase />} title="Bookings" />
+      <Stat icon={<HiOutlineBriefcase />} title="Bookings"
+      color="blue" />
 
-      <Stat icon={<HiOutlineBanknotes />} title="Sales" />
+      <Stat icon={<HiOutlineBanknotes />} title="Sales"
+      color="green" />
 
-      <Stat icon={<HiOutlineCalendarDays />} title="Check ins" />
+      <Stat icon={<HiOutlineCalendarDays />} title="Check ins"
+      color="indigo" />
 
-      <Stat icon={<HiOutlineChartBar />} title="Occupancy rate" />
+      <Stat icon={<HiOutlineChartBar />} title="Occupancy rate"
+      color="yellow" />
     </>
   );
 }
