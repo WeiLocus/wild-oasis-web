@@ -3,8 +3,6 @@ import { useDarkMode } from "../context/DarkModeContext";
 import LogoLight from "/logo-light.png"
 import LogoDark from "/logo-dark.png";
 
-const image = "../../public/logo-dark.png"
-
 const StyledLogo = styled.div`
   text-align: center;
 `;
