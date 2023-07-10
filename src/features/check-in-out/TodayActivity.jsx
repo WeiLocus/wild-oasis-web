@@ -14,6 +14,19 @@ const StyledToday = styled.div`
   border-radius: var(--border-radius-md);
 `;
 
+const TodayList = styled.div`
+  overflow: scroll;
+  overflow-x: hidden;
+
+  /* Removing scrollbars for webkit, firefox, and ms, respectively */
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+`;
+
 const NoActivity = styled.p`
   margin-top: 0.8rem;
   text-align: center;
@@ -28,9 +41,13 @@ function TodayActivity() {
 
   let renderedItem;
   if (activityData.length > 0) {
-    renderedItem = activityData.map((data) => (
-      <TodayItem key={data.id} data={data} />
-    ));
+    <TodayList>
+      {
+        (renderedItem = activityData.map((data) => (
+          <TodayItem key={data.id} data={data} />
+        )))
+      }
+    </TodayList>;
   }
   if (activityData.length === 0) {
     renderedItem = <NoActivity>No activity today</NoActivity>;
