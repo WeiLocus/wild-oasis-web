@@ -2,6 +2,8 @@ import { useTodayActivity } from "./useTodayActivity";
 import styled from "styled-components";
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
+import Spinner from "../../ui/Spinner";
+import TodayItem from "./TodayItem";
 
 const StyledToday = styled.div`
   grid-column: 1 / span 2;
@@ -12,13 +14,35 @@ const StyledToday = styled.div`
   border-radius: var(--border-radius-md);
 `;
 
+const NoActivity = styled.p`
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 500;
+`;
+
 function TodayActivity() {
   const { isLoading, activityData } = useTodayActivity();
+
+  if (isLoading) return <Spinner />;
+  console.log("a", activityData);
+
+  let renderedItem;
+  if (activityData.length > 0) {
+    renderedItem = activityData.map((data) => (
+      <TodayItem key={data.id} data={data} />
+    ));
+  }
+  if (activityData.length === 0) {
+    renderedItem = <NoActivity>No activity today</NoActivity>;
+  }
+
   return (
     <StyledToday>
       <Row>
         <Heading as="h2">Today</Heading>
       </Row>
+      {renderedItem}
     </StyledToday>
   );
 }
