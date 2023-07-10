@@ -1,6 +1,7 @@
-import styled from "styled-components"
-import Row from "../../ui/Row"
-import Heading from "../../ui/Heading"
+import { useTodayActivity } from "./useTodayActivity";
+import styled from "styled-components";
+import Row from "../../ui/Row";
+import Heading from "../../ui/Heading";
 
 const StyledToday = styled.div`
   grid-column: 1 / span 2;
@@ -12,13 +13,14 @@ const StyledToday = styled.div`
 `;
 
 function TodayActivity() {
+  const { isLoading, activityData } = useTodayActivity();
   return (
     <StyledToday>
       <Row>
         <Heading as="h2">Today</Heading>
       </Row>
     </StyledToday>
-  )
+  );
 }
 
-export default TodayActivity
+export default TodayActivity;
