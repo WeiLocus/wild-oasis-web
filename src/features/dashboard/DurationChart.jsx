@@ -159,7 +159,7 @@ function DurationChart({ confirmedStays }) {
             paddingAngle={2}
             label
           >
-            {startDataLight.map((entry) => (
+            {data.map((entry) => (
               <Cell
                 key={entry.duration}
                 fill={entry.color}
