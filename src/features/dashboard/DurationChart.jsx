@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PieChart, ResponsiveContainer, Pie, Cell } from "recharts";
+import { PieChart, ResponsiveContainer, Pie, Cell, Legend } from "recharts";
 import Heading from "../../ui/Heading";
 
 const ChartBox = styled.div`
@@ -125,6 +125,14 @@ function DurationChart({ confirmedStays }) {
               />
             ))}
           </Pie>
+          <Legend
+            verticalAlign="middle"
+            align="right"
+            width="30%"
+            layout="vertical"
+            iconSize={15}
+            iconType="circle"
+          />
         </PieChart>
       </ResponsiveContainer>
     </ChartBox>
