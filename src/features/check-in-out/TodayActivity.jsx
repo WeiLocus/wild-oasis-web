@@ -25,7 +25,6 @@ function TodayActivity() {
   const { isLoading, activityData } = useTodayActivity();
 
   if (isLoading) return <Spinner />;
-  console.log("a", activityData);
 
   let renderedItem;
   if (activityData.length > 0) {
