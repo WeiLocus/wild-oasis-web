@@ -1,6 +1,14 @@
 import styled from "styled-components";
-import { PieChart, ResponsiveContainer, Pie, Cell, Legend, Tooltip } from "recharts";
+import {
+  PieChart,
+  ResponsiveContainer,
+  Pie,
+  Cell,
+  Legend,
+  Tooltip,
+} from "recharts";
 import Heading from "../../ui/Heading";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const ChartBox = styled.div`
   grid-column: 3 / span 2;
@@ -18,27 +26,27 @@ const ChartBox = styled.div`
 const startDataLight = [
   {
     duration: "1 night",
-    value: 5,
+    value: 0,
     color: "#ef4444",
   },
   {
     duration: "2 nights",
-    value: 3,
+    value: 0,
     color: "#f97316",
   },
   {
     duration: "3 nights",
-    value: 8,
+    value: 0,
     color: "#eab308",
   },
   {
     duration: "4-5 nights",
-    value: 1,
+    value: 0,
     color: "#84cc16",
   },
   {
     duration: "6-7 nights",
-    value: 2,
+    value: 0,
     color: "#22c55e",
   },
   {
@@ -48,12 +56,12 @@ const startDataLight = [
   },
   {
     duration: "15-21 nights",
-    value: 1,
+    value: 0,
     color: "#3b82f6",
   },
   {
     duration: "21+ nights",
-    value: 1,
+    value: 0,
     color: "#a855f7",
   },
 ];
@@ -101,19 +109,52 @@ const startDataDark = [
   },
 ];
 
+// refactor data
+function prepareDate(startData, stays) {
+  // 根據field，找是否有對應的duration，有的話就把value + 1
+  function incArrayValue(arr, field) {
+    return arr.map((obj) =>
+      obj.duration === field ? { ...obj, value: obj.value + 1 } : obj
+    );
+  }
+
+  const data = stays
+    .reduce((arr, current) => {
+      const num = current.numNights;
+
+      if (num === 1) return incArrayValue(arr, "1 night");
+      if (num === 2) return incArrayValue(arr, "2 nights");
+      if (num === 3) return incArrayValue(arr, "3 nights");
+      if ([4, 5].includes(num)) return incArrayValue(arr, "4-5 nights");
+      if ([6, 7].includes(num)) return incArrayValue(arr, "6-7 nights");
+      if (num >= 8 && num <= 14) return incArrayValue(arr, "8-14 nights");
+      if (num >= 15 && num <= 21) return incArrayValue(arr, "15-21 nights");
+      if (num >= 21) return incArrayValue(arr, "21+ nights");
+
+      return arr;
+    }, startData)
+    .filter((obj) => obj.value > 0);
+
+  return data;
+}
+
 function DurationChart({ confirmedStays }) {
+  const { isDarkMode } = useDarkMode();
+  const startData = isDarkMode ? startDataDark : startDataLight;
+  const data = prepareDate(startData, confirmedStays);
+
   return (
     <ChartBox>
       <Heading as="h2">Stay duration summary</Heading>
       <ResponsiveContainer height={250} width="100%">
         <PieChart>
           <Pie
-            data={startDataLight}
+            data={data}
             nameKey="duration"
             dataKey="value"
             innerRadius={70}
             outerRadius={100}
-            cx="40%"
+            cx="45%"
             cy="50%"
             paddingAngle={2}
             label
