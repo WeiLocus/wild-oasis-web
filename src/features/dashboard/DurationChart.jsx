@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PieChart, ResponsiveContainer, Pie, Cell, Legend } from "recharts";
+import { PieChart, ResponsiveContainer, Pie, Cell, Legend, Tooltip } from "recharts";
 import Heading from "../../ui/Heading";
 
 const ChartBox = styled.div`
@@ -112,10 +112,11 @@ function DurationChart({ confirmedStays }) {
             nameKey="duration"
             dataKey="value"
             innerRadius={70}
-            outerRadius={110}
+            outerRadius={100}
             cx="40%"
             cy="50%"
-            paddingAngle={1}
+            paddingAngle={2}
+            label
           >
             {startDataLight.map((entry) => (
               <Cell
@@ -125,6 +126,7 @@ function DurationChart({ confirmedStays }) {
               />
             ))}
           </Pie>
+          <Tooltip />
           <Legend
             verticalAlign="middle"
             align="right"
