@@ -114,7 +114,7 @@ const startDataDark = [
 ];
 
 // refactor data
-function prepareDate(startData, stays) {
+function prepareData(startData, stays) {
   // 根據field，找是否有對應的duration，有的話就把value + 1
   function incArrayValue(arr, field) {
     return arr.map((obj) =>
@@ -145,7 +145,7 @@ function prepareDate(startData, stays) {
 function DurationChart({ confirmedStays }) {
   const { isDarkMode } = useDarkMode();
   const startData = isDarkMode ? startDataDark : startDataLight;
-  const data = prepareDate(startData, confirmedStays);
+  const data = prepareData(startData, confirmedStays);
 
   return (
     <ChartBox>
