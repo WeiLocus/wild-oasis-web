@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Tag from "../../ui/Tag";
 import Flag from "../../ui/Flag";
 import Button from "../../ui/Button";
@@ -15,7 +16,7 @@ const StyledTodayItem = styled.li`
 
 const Guest = styled.div`
   font-weight: 500;
-`
+`;
 
 function TodayItem({ data }) {
   const {
@@ -33,7 +34,12 @@ function TodayItem({ data }) {
       <Guest>{fullName}</Guest>
       <div>{numNights} nights</div>
 
-      {status === "unconfirmed" && <Button size="small" variation="primary">Check in</Button>}
+      {status === "unconfirmed" && (
+        // as <a> element to navigate
+        <Button as={Link} to={`/checkin/${id}`} size="small" variation="primary">
+          Check in
+        </Button>
+      )}
     </StyledTodayItem>
   );
 }
