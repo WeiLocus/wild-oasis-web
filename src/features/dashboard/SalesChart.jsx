@@ -89,7 +89,7 @@ function SalesChart({ bookings, numDays }) {
             tickLine={{ stroke: colors.text }}
           />
           <CartesianGrid strokeDasharray="4" />
-          <Tooltip contentStyle={{ backgroundColor: colors.background }} />
+          <Tooltip contentStyle={{ backgroundColor: colors.background, text: "#" }} />
           <Area
             dataKey="totalSales"
             type="monotone"
