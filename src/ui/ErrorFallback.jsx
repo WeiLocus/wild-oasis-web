@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import GlobalStyle from "../styles/GlobalStyles";
 import Heading from "./Heading"
+import Button from "./Button";
+import {BiMessageError} from "react-icons/bi"
 
 const StyledErrorFallback = styled.main`
   display: flex;
@@ -30,14 +32,20 @@ const Box = styled.div`
   }
 `;
 
-function ErrorFallback({error}) {
+function ErrorFallback({error, resetErrorBoundary}) {
   return (
     <>
       <GlobalStyle />
       <StyledErrorFallback>
         <Box>
-          <Heading as="h1">Something went wrong</Heading>
+          <Heading as="h1">
+            Something went wrong 
+            <BiMessageError />
+          </Heading>
           <p>{error.message}</p>
+          <Button size="large" onClick={resetErrorBoundary}>
+            Try again
+          </Button>
         </Box>
       </StyledErrorFallback>
     </>
