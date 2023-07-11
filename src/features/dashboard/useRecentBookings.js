@@ -10,12 +10,10 @@ export function useRecentBookings() {
   const numDays = !searchParams.get("last")
     ? 7
     : Number(searchParams.get("last"));
-  console.log("numDays", numDays);
 
   // 計算當下日期和要比較的numDays，作為參數傳給getBookingsAfterDate
   // subDays 第一個參數日期(current date) - 指定的日期，回傳新的日期
   const queryDate = subDays(new Date(), numDays).toISOString();
-  console.log("queryDate", queryDate);
 
   const { isLoading: isLoadingDate, data: bookings } = useQuery({
     queryKey: ["bookings", `last-${numDays}`],
