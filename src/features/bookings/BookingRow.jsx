@@ -50,11 +50,9 @@ function BookingRow({ bookingsData }) {
 
   const {
     id: bookingId,
-    created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
