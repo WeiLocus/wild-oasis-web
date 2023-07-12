@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import HeaderMenu from "./HeaderMenu";
 import UserAvatar from "../features/authentication/UserAvatar";
+import MainNavToggle from "./MainNavToggle";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -15,6 +16,7 @@ const StyledHeader = styled.header`
 function Header() {
   return (
     <StyledHeader>
+      <MainNavToggle />
       <UserAvatar />
       <HeaderMenu />
     </StyledHeader>
