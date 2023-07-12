@@ -177,5 +177,8 @@ button:has(svg) {
   line-height: 0;
 }`;
 
+export const breakpoint = {
+  md: "992px"
+}
 
 export default GlobalStyle
