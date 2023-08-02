@@ -33,6 +33,7 @@ const ButtonPagination = styled.button`
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: var(--border-radius-sm);
+  background-color: var(--color-grey-0);
   font-size: 1.4rem;
   font-weight: 500;
 
