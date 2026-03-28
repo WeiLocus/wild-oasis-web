@@ -85,6 +85,14 @@ $ npm run dev
 ctrl/Command + c
 ```
 
+### 環境變數設置
+複製 `.env.example` 到 `.env`，並填入您的 Supabase 憑證：
+- `VITE_SUPABASE_URL`: 您的 Supabase 專案 URL
+- `VITE_SUPABASE_ANON_KEY`: 您的 Supabase 匿名金鑰
+
+### 部署
+專案使用 GitHub Actions 自動部署到 GitHub Pages
+
 ### 💻 Technologies 開發環境與工具
 
 - node.js 
